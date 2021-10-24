@@ -1,0 +1,19 @@
+<%= turbo_stream_from Current.user, 'fleet:routes' %>
+<div class="columns m-t-md">
+  <div class="column list-tabs is-one-quarter">
+    <%= render partial: 'routes' %>
+    <div class="box is-active has-text-centered add-new-route">
+      <a
+        data-turbo-frame="edit_route"
+        class="button is-link is-success"
+        href="<%= new_fleet_vessel_route_path(vessel_id: @vessel.id) %>">
+        <svg class="svg-inline--fa fa-plus fa-w-14 m-r-md" aria-hidden="true" data-prefix="fas" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z"></path></svg><!-- <i class="fas fa-plus m-r-md"></i> --> ADD NEW ROUTE
+      </a>
+    </div>
+  </div>
+  <turbo-frame
+    id="edit_route"
+    src="<%=@routes.results.empty? ? nil : edit_fleet_vessel_route_path(@routes.results[0], vessel_id: @vessel.id)%>"
+    class="column list-tabs-view"
+  />
+</div>

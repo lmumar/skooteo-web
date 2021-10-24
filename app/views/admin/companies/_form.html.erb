@@ -1,0 +1,95 @@
+<%= form_with(model: [:admin, (@company || Company.new)], data: {target: 'companies.form'}) do |form| %>
+  <header class="s-modal-header">
+    <div class="columns is-mobile is-align-middle">
+      <div
+        data-controller="closer"
+        data-closer-element-id-value="company_form_modal"
+        class="column is-one-third"
+        data-action="click->closer#close"
+      >
+        <span class="icon">
+          <i class="fas fa-times"></i>
+        </span>
+      </div>
+      <div class="column has-text-centered">
+        <h5 class="title is-5">
+          <%= @company.try(:name) || 'New Company' %>
+        </h5>
+      </div>
+      <div class="column is-one-third has-text-right">
+        <button class="button is-primary">Save</button>
+      </div>
+    </div>
+  </header>
+  <div class="s-modal-content">
+    <div>
+      <fieldset class="form-fieldset">
+        <legend class="form-legend">Company Information</legend>
+        <div class="form-table m-b-md">
+          <div class="form-row">
+            <%= form.label :name %>
+            <div class="form-field-content">
+              <%= form.text_field :name, placeholder: true, required: true %>
+            </div>
+          </div>
+          <div class="form-row">
+            <%= form.label :company_type %>
+            <div class="form-field-content">
+              <div class="select">
+                <%= form.select :company_type, company_type_options %>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <%= form.label :time_zone %>
+            <div class="form-field-content">
+              <div class="select">
+                <%= form.select :time_zone, time_zone_options %>
+              </div>
+            </div>
+          </div>
+          <div class="demo-notice">
+            <label class="checkbox">
+              <% if form.object.new_record? %>
+                <%= form.check_box :demo %>
+              <% end %>
+              <% if form.object.new_record? || form.object.demo? %>
+                This is a demo company
+              <% end %>
+            </label>
+          </div>
+        </div>
+        <% if @company.fleet_operator? %>
+          <div id="company_addons">
+            <legend class="form-legend">Add-ons</legend>
+            <ul>
+            <%= form.fields_for :company_addons do |addon_form| %>
+              <li>
+                <%= addon_form.hidden_field :_destroy %>
+                <label class="checkbox">
+                  <%= addon_form.check_box :addon_id, {
+                    "data-controller" => "checkbox-nested",
+                    "data-action" => "click->checkbox-nested#tick",
+                    checked: addon_form.object.persisted? },
+                    addon_form.object.addon_id %>
+                  <%= addon_form.object.addon.code.titleize %>
+                </label>
+              </li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <span id="save_notification"></span>
+      </fieldset>
+    </div>
+  </div>
+<% end %>
+
+<% if !@company.new_record? && (@company.advertiser? || @company.skooteo?) %>
+  <div id="credits-container">
+    <%= render partial: '/admin/companies/credits/form' %>
+    <div id="credits">
+      <%= render partial: '/admin/companies/credits/list' %>
+    </div>
+  </div>
+<% end %>

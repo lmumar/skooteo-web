@@ -1,0 +1,31 @@
+<div class="tabs m-b-md" data-controller="highlight" data-highlight-selected-value="<%=vessel_active_admin_tab%>">
+  <ul>
+    <li data-highlight-target="item" data-action="click->highlight#select" data-key="1">
+      <%= link_to edit_fleet_vessel_route_path(@route, vessel_id: @vessel.id),
+        'data-turbo-frame': 'edit_route' do %>
+        <span class="icon is-small">
+          <i class="far fa-list-alt"></i>
+        </span>
+        <span>Route Details</span>
+      <% end %>
+    </li>
+    <li data-highlight-target="item" data-action="click->highlight#select" data-key="2">
+      <%= link_to fleet_edit_vessel_media_settings_path(vessel_id: @vessel.id, route_id: @route.id),
+        'data-turbo-frame': 'edit_route' do %>
+        <span class="icon is-small"><i class="fas fa-cog"></i></span>
+        <span>Route Settings</span>
+      <% end %>
+    </li>
+    <% if VehicleRoute.exists?(vehicle: @vessel, route: @route) %>
+      <li data-highlight-target="item" data-action="click->highlight#select" data-key="3">
+        <%= link_to fleet_vessel_route_schedules_path(route_id: @route.id, vessel_id: @vessel.id),
+          'data-turbo-frame': 'edit_route' do %>
+          <span class="icon is-small">
+            <i class="far fa-calendar"></i>
+          </span>
+          <span>Route Schedules</span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

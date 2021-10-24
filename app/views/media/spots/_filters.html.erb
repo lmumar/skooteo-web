@@ -1,0 +1,61 @@
+<%= form_with url: search_spots_vehicle_route_schedules_path do |f| %>
+  <div class="filters">
+    <div class="field is-inline-block">
+      <div class="control">
+        <p class="has-text-weight-semibold">Trip Start Date</p>
+        <div class="select">
+          <%= f.text_field :start_date, class: 'input', data: { target: "spot-select.startDate" },
+            'data-controller' => "pikaday", 'data-pikaday-max-days-value' => 90, 'data-pikaday-set-default-value' => true %>
+        </div>
+      </div>
+    </div>
+    <div class="field is-inline-block">
+      <div class="control">
+        <p class="has-text-weight-semibold">Companies</p>
+        <%= f.select :companies, fleet_operator_options, {}, {
+          multiple: true, data: { 'spot-select-target': 'companies', action: 'change->spot-select#onSelectCompanies'}} %>
+      </div>
+    </div>
+    <div class="field is-inline-block">
+      <div class="control">
+        <p>Origin</p>
+        <div class="select">
+          <%= f.select :origin, ['Origin'], {}, {disabled: true, data: { 'spot-select-target': 'origins' }}%>
+        </div>
+      </div>
+    </div>
+    <div class="field is-inline-block">
+      <div class="control">
+        <p>Destination</p>
+        <div class="select">
+          <%= f.select :destination, ['Destination'], {}, {disabled: true, data: { 'spot-select-target': 'destinations'}}%>
+        </div>
+      </div>
+    </div>
+    <div class="field is-inline-block">
+      <div class="control">
+        <p></p>
+        <button class="button is-success submit" type="submit" data-action="click->spot-select#search">
+          <span class="icon m-r-xxs">
+            <i class="fas fa-search"></i>
+          </span>
+          SEARCH
+        </button>
+      </div>
+    </div>
+    <% if Current.company.can_book? %>
+      <div class="sep is-inline-block is-hidden-touch"></div>
+      <div class="d-inline-block has-text-success is-block-touch calculate">
+        <Div class="m-b-sm">
+          <span class="icon is-hidden"><i class="fas fa-check"></i></span>
+          <span data-spot-select-target="routesSelectedInfo"/>
+        </div>
+        <div>
+          <button class="button is-primary submit" disabled data-spot-select-target="calculate" data-action="click->spot-select#onCalculateSpots">
+            CALCULATE SPOTS
+          </button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

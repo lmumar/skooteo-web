@@ -1,0 +1,19 @@
+<div data-controller="videos">
+  <% if params[:video_type] == Skooteo::ENTERTAINMENT_VIDEO_TYPE %>
+    <%= render partial: 'fleet/channels/header' %>
+  <% else %>
+    <%= render partial: 'fleet/playlists/header' %>
+  <% end %>
+  <div class="box-group my-ad-videos">
+    <div class="columns">
+      <div class="column">
+        <div class="list-videos" id="list_videos">
+          <% @videos.results.in_groups(4) do |group| %>
+            <%= render group.compact %>
+          <% end %>
+        </div>
+        <%= render partial: 'shared/pager', object: @videos %>
+      </div>
+    </div>
+  </div>
+</div>

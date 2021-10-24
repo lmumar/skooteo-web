@@ -1,0 +1,24 @@
+<div class="list-video" id="<%=dom_id(playlist_video)%>">
+  <div class="video" data-playlist_video_id="<%=playlist_video.id%>" data-playlist_video_url="<%=url_for(playlist_video.video.content)%>" data-action="click->playlist#onClickVideo">
+    <span class="video-duration">
+      <%= format_duration(playlist_video.video.duration_in_seconds) %>
+    </span>
+    <% if playlist_video.video.content.previewable? %>
+      <%= image_tag url_for(playlist_video.video.content.preview(resize: '250x160')), style: 'pointer-events: none' %>
+    <% end %>
+  </div>
+  <div class="level drag-indicator">
+    <div class="level-left">
+      <div class="level-item">
+        <%= h playlist_video.video.name %>
+      </div>
+    </div>
+    <div class="level-right">
+      <div class="level-item">
+        <% if PlaylistVideoPolicy.can_destroy?(playlist_video) %>
+          <a class="button is-danger is-small is-outlined" data-playlist_video_id="<%=playlist_video.id%>" data-action="click->playlist#onRemovePlaylistVideo">Remove</a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

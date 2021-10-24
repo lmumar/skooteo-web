@@ -1,0 +1,6 @@
+<%= form.label field_name.to_sym, prop_info['label'] %>
+<div class="form-field-content">
+  <div class="select">
+    <%= form.select field_name.to_sym, prop_info.fetch('options') { [] } %>
+  </div>
+</div>

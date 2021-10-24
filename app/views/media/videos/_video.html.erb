@@ -1,0 +1,46 @@
+<div class="list-video" data-id="<%=video.id%>" id="<%=dom_id(video)%>">
+  <div
+    class="video"
+    data-controller="video-popup-preview"
+    data-video-popup-preview-preview-url-value="<%=url_for(video.content)%>"
+    data-playlist_video_id="<%=video.id%>"
+    data-playlist_video_url="<%=url_for(video.content)%>"
+    data-action="click->video-popup-preview#preview"
+  >
+    <span class="video-duration">
+      <%= format_duration(video.duration_in_seconds) %>
+    </span>
+    <% if video.content.previewable? %>
+      <%= image_tag video.content.preview(resize: '250x160'), style: 'pointer-events: none' %>
+    <% end %>
+  </div>
+  <p class="title"><%= h video.name %></p>
+  <% if video.expire_at? %>
+    <small>Expiry: Date Last Updated: <%= l video.expire_at.to_date, format: :short %></small>
+  <% end %>
+  <% if video.approved? %>
+    <small>Approved: <%= l video.events.last.created_at, format: :short %></small>
+  <% end %>
+  <div class="list-video-actions">
+    <%= link_to edit_media_video_path(video), class: 'button is-outlined' do %>
+      <span>Edit</span>
+      <span class="icon is-small">
+        <i class="fas fa-pencil-alt"></i>
+      </span>
+    <% end %>
+    <% if policy(video).destroy? %>
+      <a
+        class="button is-outlined"
+        data-controller="links"
+        data-links-url-value="<%=media_video_path(video)%>"
+        data-links-method-value="delete"
+        data-action="click->links#visit"
+      >
+        <span>Delete</span>
+        <span class="icon is-small">
+          <i class="fas fa-times"></i>
+        </span>
+      </a>
+    <% end %>
+  </div>
+</div>

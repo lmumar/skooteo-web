@@ -1,0 +1,71 @@
+<tr class="is-highlighted" id="new_schedule_template" data-controller="toggle-element">
+  <td colspan="4" style="padding: 0px">
+    <%= form_with(model: @vessel_schedule, url: fleet_vessel_route_schedules_path, method: 'post') do |form| %>
+      <%= hidden_field_tag :vessel_id, @vessel.id %>
+      <%= hidden_field_tag :route_id, @route.id %>
+
+      <table class="table is-fullwidth is-editable" id="route-schedule-form-container">
+        <tbody>
+          <tr class="is-highlighted">
+            <td />
+            <td />
+            <td>
+              <button type="submit" class="button is-primary">
+                Save
+              </button>
+              <button
+                class="button is-primary is-outlined"
+                data-action="click->toggle-element#close"
+              >Cancel</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="is-form-label" colspan="1">Start date:</td>
+            <td class="is-form-field-content" colspan="3">
+              <%= date_field_tag "vehicle_schedule_template[effective_start_date]",
+                1.day.since.to_date.iso8601,
+                data: { controller: 'pikaday', action: 'change->pikaday#change' } %>
+              <%= hidden_field_tag "vehicle_schedule_template[effective_end_date]",
+                7.days.since.to_date.iso8601, data: {
+                  controller: 'vehicle-schedule-end-date-field'
+                } %>
+            </td>
+          </tr>
+          <tr>
+            <td class="is-form-label" colspan="1">End date:</td>
+            <td class="is-form-field-content" colspan="5">
+              <span id="vehicle_schedule_end_date_label">
+                <%= 7.days.since.to_date.iso8601 %>
+              </span>
+            </td>
+          </tr>
+          <tr data-target="vessel-route-schedules.daysRow">
+            <td class="is-form-label" colspan="1">Day:</td>
+            <td class="is-form-field-content" colspan="3">
+              <% options_for_wday.each do |(wday, i)| %>
+                <label class="checkbox">
+                  <%= wday[0..2] %>
+                  <%= check_box_tag("vehicle_schedule_template[days][#{i}]", i, true, multiple: true) %>
+                </label>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td class="is-form-label" colspan="1">Departure time:</td>
+            <td class="is-form-field-content" colspan="3">
+              <%= time_field_tag "vehicle_schedule_template[td]" %>
+            </td>
+          </tr>
+          <tr>
+            <td class="is-form-label" colspan="1">Travel time:</td>
+            <td class="is-form-field-content" colspan="3">
+              <div class="form-field-content is-bold">
+                <%= @vessel_route.estimated_travel_duration.inspect %>,&nbsp;as per route settings
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+  </td>
+</tr>

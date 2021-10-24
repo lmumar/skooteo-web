@@ -1,0 +1,29 @@
+<div data-controller="spot-select">
+  <% unless Current.company.can_book? %>
+    <div class="notification is-system is-danger">
+      Booking is disabled if you don't have any videos uploaded yet or your credit is insufficient
+    </div>
+  <% end %>
+  <div class="header">
+    <div class="d-flex header-wrap">
+      <span class="icon">
+        <i class="fas fa-table"></i>
+      </span>
+      <h1 class="title is-inline-block">Book Spots</h1>
+    </div>
+    <div class="d-flex">
+      <div class="tabs is-inline-block">
+        <ul>
+          <li class="is-active">
+            <a>
+              <span class="icon is-small"><i class="fas fa-ship"></i></span>
+              <span>Ferries</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <%= render partial: 'filters' %>
+  <div class="box-group" id="route-search-results" data-spot-select-target="routeSearchResults"/>
+</div>

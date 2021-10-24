@@ -1,0 +1,63 @@
+<%= form_with url: fleet_vessels_path, method: :get, data: { action: "ajax:success->vessels#onFilterApplied"} do |f| %>
+  <%= hidden_field_tag :view_type, params[:view_type] || 'list' %>
+  <div class="filters">
+    <div class="field is-inline-block">
+      <div class="control">
+        <p>Routes:</p>
+        <div class="select">
+          <%= f.select :route_id, vessel_routes_options, include_blank: '', selected: params[:route_id] %>
+        </div>
+      </div>
+    </div>
+    <div class="field is-inline-block">
+      <div class="control">
+        <p>Vessel Name:</p>
+        <div class="select">
+          <%= f.select :vehicle_name, vessel_names_options, selected: params[:vehicle_name], include_blank: '' %>
+        </div>
+      </div>
+    </div>
+    <div class="field is-inline-block">
+      <div class="control">
+        <p>Deployment Status:</p>
+        <div class="select">
+          <%= f.select :status, vehicle_status_options, include_blank: '', selected: params[:status] %>
+        </div>
+      </div>
+    </div>
+    <div class="field is-inline-block">
+      <div class="control">
+        <p>Capacity</p>
+        <div class="select">
+          <%= f.select :capacity, capacities_options, include_blank: '', selected: params[:capacity] %>
+        </div>
+      </div>
+    </div>
+    <div class="field is-inline-block">
+      <div class="control">
+        <button type="submit" class="button is-success submit">
+          <span class="icon m-r-xxs">
+            <i class="fas fa-search"></i>
+          </span>
+          SEARCH
+        </button>
+      </div>
+    </div>
+    <div class="is-inline-block">
+      <div class="control">
+        <%= link_to fleet_vessels_path, class: "button submit m-l-xs #{params[:view_type].blank? ? 'is-active' : nil}" do %>
+          <span class="icon m-r-xs">
+            <i class="fas fa-th-large"></i>
+          </span>
+          Card View
+        <% end %>
+        <%= link_to fleet_vessels_path(view_type: 'map'), class: "button submit m-l-xs #{params[:view_type] == 'map' ? 'is-active' : nil}" do %>
+          <span class="icon m-r-xs">
+            <i class="fas fa-map"></i>
+          </span>
+          Map View
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

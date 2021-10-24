@@ -1,0 +1,25 @@
+<div id="vessels-list" class="content">
+    <nav class="level">
+        <div class="level-right"><strong>Vessel: <%= @vessel.name %></strong></div>
+        <div class="level-right">
+        <%= link_to new_fleet_vessel_vessel_route_path(@vessel), remote: true, class: "button is-secondary" do %>
+            <span class="icon is-small"><i class="fas fa-plus"></i></span>
+            <span>Add Vessel Route</span>
+        <% end %>
+        </div>
+    </nav>
+
+    <table class="table is-hoverable">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Schedules</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%= render partial: 'vehicle_route', collection: @vessel.vehicle_routes %>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,21 @@
+<% if @channel != nil %>
+  <div style="text-align: left;font-size: 20px;font-weight: bold;"> <%= @channel.gsub("_", " ").titleize %></div>
+<% end %>
+<div class="columns playlist-container" data-id="<%=playlist.id%>" id="<%=dom_id(playlist)%>">
+  <div class="column">
+    <div class="list-videos">
+      <%= render partial: '/fleet/channel_playlists/playlist_video', collection: playlist.playlist_videos.order(:play_order) %>
+      <div class="videobox-content fixed">
+        <div class="video-add">
+          <%= link_to new_fleet_playlist_assignment_path(playlist_id: playlist.id),
+            'data-controller': 'links', 'data-action': 'click->links#visit', 'data-links-turbo-value': 'true' do %>
+            <span class="icon">
+              <i class="fas fa-plus"></i>
+            </span>
+          <% end %>
+        </div>
+        <small>Click the + to add a video</small>
+      </div>
+    </div>
+  </div>
+</div>

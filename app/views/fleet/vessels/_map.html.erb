@@ -1,0 +1,31 @@
+<div class="box-group" id="vessels-list">
+  <div class="columns">
+    <div class="column fleet-map-list is-one-third">
+      <% unless @vessels.results.size.zero? %>
+        <div
+          data-id="-1"
+          data-index="-1"
+          data-action="click->vessels#onSelectVessel"
+        >
+          <div class="button is-primary">
+            <span>View all</span>
+          </div>
+        </div>
+      <% end %>
+      <% @vessels.each_with_index do |vessel, i| %>
+        <div
+          id="<%=dom_id(vessel)%>"
+          data-url="<%= edit_fleet_vessel_path(vessel) %>"
+          data-id="<%=vessel.id%>"
+          data-name="<%=vessel.name%>"
+          data-index="<%=i%>"
+          data-action="click->vessels#onSelectVessel"
+        >
+          <%= render vessel %>
+        </div>
+      <% end %>
+    </div>
+    <div class="column fleet-map-view" data-target="vessels.map">
+    </div>
+  </div>
+</div>

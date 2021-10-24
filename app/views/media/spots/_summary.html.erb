@@ -1,0 +1,91 @@
+<h6 class="title is-5 m-b-md">Estimated Price</h6>
+<table class="table is-fullwidth is-dotted">
+  <tbody>
+    <% if @spot_booking.initialised? %>
+      <tr>
+        <td><strong>Book same number of spots for the next:</strong></td>
+        <td class="has-text-right">
+          <input
+            name="x_repeat"
+            id="x-repeat"
+            class="input is-small is-info"
+            type="number"
+            data-spot-booking-target="numDaysToClone"
+            data-action="change->spot-booking#onBookSpot"
+            min="1"
+            max="90"
+          />
+          <div class="select">
+            <%= select_tag "xdays_options", options_for_select(clone_xdays_options(@start_date)) %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+      <td class="has-text-weight-bold ">Total credits:</td>
+      <td class="has-text-weight-bold has-text-right has-text-success">
+        <%= format_currency current_credits%>
+      </td>
+    </tr>
+    <tr>
+      <td class="has-text-weight-bold">Balance after this booking:</td>
+      <td
+        class="has-text-weight-bold has-text-right has-text-primary"
+        data-spot-booking-target="totalCredits"
+      >
+        <%= format_currency(current_credits - @spot_booking.total_booking_cost)%>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="table table-calculate is-striped is-fullwidth">
+  <thead>
+    <tr>
+      <th>Spots</th>
+      <th>Booked</th>
+      <th class="has-text-right">Max cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Regular</td>
+      <td
+        class="has-text-weight-bold subtitle is-5"
+        data-spot-booking-target="regularTotalCount"
+      >
+        <%= format_number(@spot_booking.total_regular_booking_count) %>
+      </td>
+      <td
+        class="has-text-weight-bold has-text-success subtitle is-5 has-text-right"
+        data-spot-booking-target="regularTotalCost"
+      >
+        <%= format_currency(@spot_booking.total_regular_booking_cost) %>
+      </td>
+    </tr>
+    <tr class="is-hidden">
+      <td>Premium</td>
+      <td
+        class="has-text-weight-bold subtitle is-5"
+        data-spot-booking-target="premiumTotalCount"
+      >
+        <%= format_number(@spot_booking.total_premium_booking_count) %>
+      </td>
+      <td
+        class="has-text-weight-bold has-text-success subtitle is-5 has-text-right"
+        data-spot-booking-target="premiumTotalCost"
+      >
+        <%= format_currency(@spot_booking.total_premium_booking_cost) %>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="has-text-weight-bold subtitle is-4">Total</td>
+      <td
+        class="has-text-weight-bold has-text-success subtitle is-4 has-text-right"
+        data-spot-booking-target="totalCost"
+      >
+        <%= format_currency(@spot_booking.total_booking_cost) %>
+      </td>
+    </tr>
+  </tbody>
+</table>

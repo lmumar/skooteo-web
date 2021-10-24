@@ -1,0 +1,12 @@
+<div>
+  <%= render 'header' %>
+  <div class="content-group">
+    <div class="columns">
+      <div class="column is-offset-1 is-10">
+        <div class="columns is-multiline">
+          <%= render partial: 'channel', collection: @channels.channels_sorted %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

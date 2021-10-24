@@ -1,0 +1,4 @@
+<footer>
+  <%= will_paginate pager.results, page_links: false, renderer: Skooteo::WillPaginate::LinkRenderer,\
+      params: (options ||= { }) %>
+</footer>

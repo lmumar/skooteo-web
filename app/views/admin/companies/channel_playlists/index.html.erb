@@ -1,0 +1,12 @@
+<div data-controller="playlist" data-playlist-ns="fleet">
+  <%= render 'admin/companies/channels/header' %>
+  <div class="content-group">
+    <div class="columns m-b-none">
+      <div class="column has-text-right">
+        <div class="playlist" id="playlists">
+          <%= render partial: 'playlist', collection: @playlists %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

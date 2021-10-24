@@ -1,0 +1,49 @@
+<div class="box" data-target="vessels.vessel">
+  <div class="media">
+    <div class="thumbnail">
+      <% if vessel.image.attached? %>
+        <%= image_tag vessel.image %>
+      <% end %>
+    </div>
+    <div>
+      <h2><%= h vessel.name %></h2>
+      <div class="details">
+        <table class="table is-narrow is-fullwidth">
+          <tbody>
+            <tr>
+              <td class="is-bold">Capacity:</td>
+              <td><%= format_number(vessel.capacity) %></td>
+            </tr>
+            <tr>
+              <td class="is-bold">Type:</td>
+              <td><%= I18n.t("vessel_types.#{vessel.kind}") %></td>
+            </tr>
+            <!-- disable for now
+            <tr>
+                <td class="is-bold">Origin:</td>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="is-bold">Destination:</td>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="is-bold">Next schedule:</td>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            -->
+          </tbody>
+        </table>
+      </div>
+      <div class="hr"></div>
+      <div class="actions">
+        <a
+          class='button is-success is-outlined'
+          data-action='click->vessels#edit'
+        >
+          Manage Vessel
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

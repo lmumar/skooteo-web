@@ -1,0 +1,15 @@
+<table class="table is-stripped">
+  <thead>
+    <th>Date</th>
+    <th>Transaction</th>
+    <th>Particulars</th>
+    <th>Credits</th>
+    <th>Price per credit</th>
+    <th>Running Balance</th>
+  </thead>
+  <tbody>
+    <%= render partial: '/admin/companies/credits/credit', collection: @credits.results %>
+  </tbody>
+</table>
+<%= render partial: "shared/pager", object: @credits, \
+    locals: {options: { controller: 'admin/companies/credits', action: 'index', company_id: @company.id, remote: true } } %>

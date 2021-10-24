@@ -1,0 +1,47 @@
+<div class="columns playlist-container" data-id="<%=playlist.id%>" id="<%=dom_id(playlist)%>">
+  <div class="column">
+    <div class="videobox-header">
+      <div class="level">
+        <div class="level-left">
+          <span class="icon">
+            <i class="fas fa-video"></i>
+          </span>
+          <h5 class="title is-6">
+            <%= playlist.default? ? 'Default Playlist' : h(playlist.name) %>
+          </h5>
+        </div>
+        <div class="level-item hr is-hidden-mobile"></div>
+        <% unless playlist.default? %>
+          <div class="level-right">
+            <a class="button is-danger is-outlined" data-action="click->playlist#onDelete">
+              <span class="icon m-r-xs"><i class="fas fa-trash-alt"></i></span>
+              Delete
+            </a>
+            <%= link_to edit_media_playlist_path(playlist), class: "button is-success is-outlined",
+              'data-controller': 'links', 'data-action': 'click->links#visit', 'data-links-turbo-value': 'true' do %>
+              <span class="icon m-r-xs"><i class="fas fa-pencil-alt"></i></span>
+              Edit
+            <% end %>
+            <%= button_to set_default_media_playlist_path(playlist), remote: true, class: 'button is-success is-outlined', disable_with: 'loading ...' do %>
+              Set as default Playlist
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="list-videos plain sortable m-t-sm">
+      <%= render partial: '/media/playlists/playlist_video', collection: playlist.playlist_videos.order(:play_order) %>
+      <div class="videobox-content fixed m-l-sm">
+        <div class="video-add">
+          <%= link_to new_media_playlist_assignment_path(playlist_id: playlist.id),
+            'data-controller': 'links', 'data-action': 'click->links#visit', 'data-links-turbo-value': 'true' do %>
+            <span class="icon">
+              <i class="fas fa-plus"></i>
+            </span>
+          <% end %>
+        </div>
+        <small>Click the + to add a video</small>
+      </div>
+    </div>
+  </div>
+</div>

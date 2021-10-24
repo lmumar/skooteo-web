@@ -1,0 +1,24 @@
+<div class="column is-one-third">
+  <% unless Current.user.videos.approved.empty? %>
+    <small>Recently Approved Videos</small>
+    <% Current.user.videos.approved.order_latest.limit(10).each do |video| %>
+      <div class="recent-approved-videos">
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <%= video_tag url_for(video.content), size: '64x64' %>
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <h6><%= h video.name %></h6>
+              <p>
+                Uploaded on: <%= l video.created_at, format: :short %>
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,29 @@
+<div class="modal is-active" data-controller="video-play-logs">
+  <%= form_with url: admin_company_video_play_logs_path(@company), local: true, data: {target: 'video-play-logs.form'} do |form| %>
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Generate Billing Details</p>
+        <button class="delete" aria-label="close" data-action="click->video-play-logs#closeModal"></button>
+      </header>
+      <section class="modal-card-body">
+        <div class="field">
+          <label class="label">Start date</label>
+          <div class="control">
+            <%= form.text_field :start_date, class: 'input', data: {target: 'video-play-logs.startDate'} %>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">End date</label>
+          <div class="control">
+            <%= form.text_field :end_date, class: 'input', data: {target: 'video-play-logs.endDate'} %>
+          </div>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success" type="submit">Submit</button>
+        <button class="button" data-action="click->video-play-logs#closeModal">Cancel</button>
+      </footer>
+    </div>
+  <% end %>
+</div>

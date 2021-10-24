@@ -1,0 +1,68 @@
+<%= form_with(model: [:media, @video]) do |form| %>
+  <header class="s-modal-header">
+    <div class="columns is-mobile is-align-middle">
+      <div
+        data-controller="closer"
+        data-closer-element-id-value="video_form_modal"
+        class="column is-one-third"
+        data-action="click->closer#close"
+      >
+        <span class="icon">
+          <i class="fas fa-times"></i>
+        </span>
+      </div>
+      <div class="column has-text-centered">
+        <h2 class="title is-5">
+          <%= @video&.name || 'New Video' %>
+        </h2>
+      </div>
+      <div class="column is-one-third has-text-right">
+        <%= link_to "New Upload", new_media_video_path, class: 'button is-success',
+          'data-controller': 'links', 'data-action': 'click->links#visit', 'data-links-turbo-value': 'true' %>
+        <button class="button is-primary">Save</button>
+      </div>
+    </div>
+  </header>
+  <div class="s-modal-content">
+    <div class="columns">
+        <fieldset class="form-fieldset">
+          <legend class="form-legend">Video Details</legend>
+          <div class="form-table m-b-md">
+            <div class="form-row">
+              <%= form.label :name %>
+              <div class="form-field-content">
+                <%= form.text_field :name, placeholder: true, required: true %>
+              </div>
+            </div>
+            <% if @video.playlists.default.size.zero? %>
+              <div class="form-row">
+                <%= form.label :expire_at, 'Expire on' %>
+                <div class="form-field-content">
+                  <div class="select">
+                    <%= form.text_field :expire_at, value: @video.expire_at&.strftime('%Y-%m-%d'),
+                      placeholder: true, autocomplete: 'off', data: { controller: 'pikaday' } %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            <% if @video.approved? %>
+              <div class="form-row">
+                <label>Media</label>
+                <div class="form-field-content">
+                  <%= video_tag url_for(@video.content), size: '250x160', controls: true, autobuffer: false %>
+                </div>
+              </div>
+            <% else %>
+              <div class="form-row">
+                <%= form.label :media %>
+                <div class="form-field-content">
+                  <%= form.file_field :content, direct_upload: true %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <span id="save_notification"></span>
+        </fieldset>
+    </div>
+  </div>
+<% end %>

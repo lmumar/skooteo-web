@@ -1,0 +1,19 @@
+<div class="column is-half">
+  <div class="box entertainment">
+    <%= link_to admin_company_channel_playlists_path(@company.id, channel: channel.channel) do %>
+    <div class="media">
+      <div class="thumbnail">
+        <span class="icon is-small"><i class="fas fa-tv"></i></span>
+      </div>
+      <div class="">
+        <h2><%= channel.name %></h2>
+        <div class="hr"></div>
+        <div class="details">
+          <span class="details-entry">Total Movies: <strong><%= @channels.total_videos(channel.channel) %></strong></span>
+          <span class="details-entry">Total Runtime: <strong><%= @channels.total_runtime_in_seconds(channel.channel).zero? ? '0' : distance_of_time_in_words(@channels.total_runtime_in_seconds(channel.channel)) %></strong></span>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

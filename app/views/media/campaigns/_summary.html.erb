@@ -1,0 +1,156 @@
+<div class="s-modal-header">
+  <div class="columns is-mobile is-align-middle">
+    <div class="column">
+      <span class="icon" data-action="click->closer#close">
+        <i class="fas fa-times"></i>
+      </span>
+    </div>
+    <div class="column is-half has-text-centered">
+      <h2 class="title is-5 is-text-overflow">
+        <% if @campaigns.size == 1 %>
+          <%= h @campaigns.first.name %>
+        <% else %>
+          My campaigns
+        <% end %>
+        <span class="is-subtitle">(Cannot be editted)</span>
+      </h2>
+    </div>
+    <div class="column has-text-right">
+      <a class="button is-primary" data-action="click->campaigns--assign-playlist#showPlaylists">
+        <span class="icon">
+          <i class="fas fa-plus"></i>
+        </span>
+        <span>Assign Playlist</span>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="s-modal-content modal-fluid">
+  <div>
+    <div class="columns">
+      <div class="column is-one-third">
+        <table class="table is-fullwidth is-dotted">
+          <tbody>
+            <% if @campaigns.size == 1 %>
+              <tr>
+                <td>Status:</td>
+                <td class="is-bold">
+                  <% if @campaigns.first.has_started? %>
+                  Campaign has already started
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+            <tr>
+              <td>Date:</td>
+              <td class="is-bold">
+                <%= format_short_date campaigns_start_date(@campaigns) %>
+                -
+                <%= format_short_date campaigns_end_date(@campaigns) %>
+              </td>
+            </tr>
+            <tr>
+              <td>Spots:</td>
+              <td class="is-bold">
+                <%= format_number @campaign_summary.total_regular_spots %>
+              </td>
+            </tr>
+            <tr class="is-hidden">
+              <td>Premium Spots:</td>
+              <td class="is-bold">
+                <%= format_number @campaign_summary.total_premium_spots %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="column">
+        <table class="table is-striped is-fullwidth">
+          <thead>
+            <tr>
+              <th>Trip</th>
+              <th>Routes</th>
+              <th>Vessel</th>
+              <th>ETD</th>
+              <th>ETA</th>
+              <th>Spots</th>
+              <th class="is-hidden">PREMIUM</th>
+              <th>PASS CAP.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @campaign_summary.bookings.each do |booking| %>
+              <tr>
+                <td><%= format_short_date booking.trip_date %></td>
+                <td><%= h booking.route %></td>
+                <td><%= h booking.vessel %></td>
+                <td><%= format_time booking.etd %></td>
+                <td><%= format_time booking.eta %></td>
+                <td><%= format_number booking.regular %></td>
+                <td class="is-hidden"><%= format_number booking.premium %></td>
+                <td><%= format_number booking.capacity %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <div>
+    <div class="columns">
+      <div class="column is-one-third">
+        <h6 class="title is-6 m-b-md">
+          Assigned Videos
+          <span class="is-subtitle">(Cannot be editted)</span>
+        </h6>
+        <table class="table is-fullwidth is-dotted">
+          <tbody>
+            <tr>
+              <td>Playlist:</td>
+              <td class="is-bold">
+                <%= @campaign_summary.playlists.values.flatten.uniq.map(&:name).join(',') %>
+              </td>
+            </tr>
+            <tr class="is-hidden">
+              <td>Sequenced Videos:</td>
+              <td class="is-bold">
+                <!-- TODO -->
+              </td>
+            </tr>
+            <tr>
+              <td>Un-assigned Spots:</td>
+              <td class="is-bold">
+                <%= format_number @campaign_summary.spots.select{ |spot| spot.playlist.nil? }.size %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="column">
+      	<h4 class="subtitle is-5">Playlist</h4>
+        <div class="videobox" style="margin-bottom:35px">
+          <%= render partial: 'media/playlists/playlist_video', collection: @campaign_summary.playlists_videos(:regular) || [] %>
+        </div>
+      	<h4 class="subtitle is-5 is-hidden">Premium Playlist</h4>
+        <div class="videobox is-hidden">
+          <%= render partial: 'media/playlists/playlist_video', collection: @campaign_summary.playlists_videos(:premium) || [] %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="is-hidden">
+  <div class="field is-inline-block" data-campaigns--assign-playlist-target="playlistsModalContent">
+    <div class="control">
+      <label>Playlist: </label>
+      <div class="select">
+        <%= select_tag :regular_playlists, options_from_collection_for_select((Current.company.playlists.default + Current.company.playlists.active.order(:name)), 'id', 'name') %>
+      </div>
+    </div>
+    <div class="control is-hidden">
+      <label>Premium: </label>
+      <div class="select">
+        <%= select_tag :premium_playlists, options_from_collection_for_select((Current.company.playlists.default + Current.company.playlists.active.order(:name)), 'id', 'name') %>
+      </div>
+    </div>
+  </div>
+</div>

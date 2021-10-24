@@ -1,0 +1,3 @@
+<% turbo_stream.replace 'company_list' do %>
+  <%= render partial: (params[:company_type] || Company.types.fleet_operator.to_s), collection: @companies.results, as: :company  %>
+<% end %>

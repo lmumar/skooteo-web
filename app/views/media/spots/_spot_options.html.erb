@@ -1,0 +1,93 @@
+<% if @spot_booking.confirmed? %>
+  <h6 class="title is-5 m-b-md">
+    <%= @spot_booking.campaign_name %>
+  </h6>
+  <%= form.hidden_field :campaign_name %>
+<% else %>
+  <h6 class="title is-5 m-b-md">Set campaign name:</h6>
+  <%= form.text_field :campaign_name, placeholder: "Create campaign name", class: "has-text-weight-bold input m-b-lg", required: true %>
+<% end %>
+<div class="level m-b-md">
+  <div class="level-left">
+    <h6 class="title is-5">Selected Spots</h6>
+  </div>
+</div>
+<table class="table is-striped is-fullwidth available-spots-list">
+  <thead>
+    <tr>
+      <th>Company</th>
+      <th>Routes</th>
+      <th>Vessel</th>
+      <th>Type</th>
+      <th>ETD</th>
+      <th>ETA</th>
+      <th>REGULAR</th>
+      <th class="is-hidden">PREMIUM</th>
+      <th>PASS CAP.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @spot_booking.items.each_with_index do |datarow, i| %>
+      <tr>
+        <td>
+          <%= datarow.company %>
+          <%= hidden_field_tag 'spot_booking[items][]item[vehicle_route_schedule_id]', datarow.vehicle_route_schedule_id %>
+          <%= hidden_field_tag 'spot_booking[items][]item[vehicle_route_id]', datarow.vehicle_route_id %>
+          <%= hidden_field_tag 'spot_booking[items][]item[route_id]', datarow.route_id %>
+          <%= hidden_field_tag 'spot_booking[items][]item[route_name]', datarow.route_name %>
+          <%= hidden_field_tag 'spot_booking[items][]item[vehicle_name]', datarow.vehicle_name %>
+          <%= hidden_field_tag 'spot_booking[items][]item[company]', datarow.company %>
+          <%= hidden_field_tag 'spot_booking[items][]item[vehicle_type]', datarow.vehicle_type %>
+          <%= hidden_field_tag 'spot_booking[items][]item[etd]', datarow.etd %>
+          <%= hidden_field_tag 'spot_booking[items][]item[eta]', datarow.eta %>
+          <%= hidden_field_tag 'spot_booking[items][]item[available_regular_spots]', datarow.available_regular_spots %>
+          <%= hidden_field_tag 'spot_booking[items][]item[available_premium_spots]', datarow.available_premium_spots %>
+          <%= hidden_field_tag 'spot_booking[items][]item[passenger_capacity]', datarow.passenger_capacity, data: {target: 'spot-booking.capacities'} %>
+          <%= hidden_field_tag 'spot_booking[items][]item[credits_per_spot]', datarow.credits_per_spot, data: {target: 'spot-booking.credits'} %>
+        </td>
+        <td><%= h datarow.route_name %></td>
+        <td><%= h datarow.vehicle_name %></td>
+        <td><%= t "vessel_type.#{datarow.vehicle_type}" %></td>
+        <td><%= format_travel_time datarow.etd %></td>
+        <td><%= format_travel_time datarow.eta %></td>
+        <td>
+          <div class="field">
+            <div class="control has-icons-right">
+              <%= number_field_tag 'spot_booking[items][]item[booked_regular_spots]',
+                datarow.booked_regular_spots, max: datarow.available_regular_spots,
+                readonly: @spot_booking.confirmed?,
+                class: 'input field',
+                data: {
+                  index: i,
+                  action: 'change->spot-booking#onBookSpot',
+                  'spot-booking-target' => 'regularBookings'
+                } %>
+              <span class="icon is-small is-right">
+                / <%= format_number datarow.available_regular_spots %>
+              </span>
+            </div>
+          </div>
+        </td>
+        <td class="is-hidden">
+          <div class="field">
+            <div class="control has-icons-right">
+              <%= number_field_tag 'spot_booking[items][]item[booked_premium_spots]',
+                datarow.booked_premium_spots, max: datarow.available_premium_spots,
+                class: 'input field',
+                readonly: @spot_booking.confirmed?,
+                data: {
+                  index: i,
+                  action: 'change->spot-booking#onBookSpot',
+                  'spot-booking-target' => 'premiumBookings'
+                } %>
+              <span class="icon is-small is-right">
+                / <%= format_number datarow.available_premium_spots %>
+              </span>
+            </div>
+          </div>
+        </td>
+        <td><%= datarow.passenger_capacity%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

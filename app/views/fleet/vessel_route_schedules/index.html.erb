@@ -1,0 +1,54 @@
+<turbo-frame id="edit_route">
+  <%= turbo_stream_from 'fleet:schedules' %>
+  <div class="column">
+    <%= render "fleet/vessel_routes/tabs" %>
+    <div class="columns">
+      <div class="column">
+        <div class="m-b-md">
+          <% unless params[:inactive] == '1' %>
+            <%= button_to new_schedule_fleet_vessel_route_schedules_path(route_id: @route.id, vessel_id: @vessel.id), class: 'button is-primary' do %>
+              <span class="icon m-r-sm">
+                <i class="fas fa-plus"></i>
+              </span>
+              Add Vessel Schedule
+            <% end %>
+          <% end %>
+          <div
+            class="schedule-filter is-pulled-right"
+            data-controller="vessel-schedule-filters"
+            data-basepath="<%=fleet_vessel_route_schedules_url(route_id: @route.id, vessel_id: @vessel.id)%>"
+          >
+            <div class="select">
+              <%= select_month @period, {}, { 'data-vessel-schedule-filters-target': 'month' } %>
+            </div>
+            <div class="select">
+              <%= select_year @period, {}, { 'data-vessel-schedule-filters-target': 'year' } %>
+            </div>
+            <div class="select">
+              <%= select_tag 'status', options_for_schedule_statuses,
+                'data-vessel-schedule-filters-target': "status" %>
+            </div>
+            <button class="button is-info is-outlined" data-action="click->vessel-schedule-filters#apply">
+              Show
+            </button>
+          </div>
+        </div>
+        <table class="table is-fullwidth is-editable is-hoverable">
+          <thead>
+            <tr>
+              <th>ETD</th>
+              <th>ETA</th>
+              <th>Creator</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="schedules">
+            <!-- do not delete this, form for new schedule will be hosted in this element -->
+            <tr class="is-hidden" id="new_schedule_template" />
+            <%= render partial: 'schedule', collection: (@vessel_schedules) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</turbo-frame>

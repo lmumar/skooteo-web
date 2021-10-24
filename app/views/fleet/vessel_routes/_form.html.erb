@@ -1,0 +1,64 @@
+<div id="route_edit_form">
+  <div class="column" data-controller="vessel-routes-editor">
+    <% unless @route.new_record? %>
+      <%= render "tabs" %>
+    <% end %>
+    <%= form_with(model: @route, url: @route.new_record? ? fleet_vessel_routes_path : fleet_vessel_route_path(@route)) do |form| %>
+      <div class="column">
+        <div class="m-b-md">
+          <button class="button is-primary" type="submit">
+            <span class="is-flex">Save</span>
+          </button>
+          <span id="save_notification"/>
+        </div>
+      </div>
+
+      <%= hidden_field_tag 'vessel_id', @vessel.id %>
+      <div class="m-b-none">
+        <div class="columns">
+          <div class="column">
+            <fieldset class="form-fieldset p-b-sm">
+              <div class="form-table">
+                <div class="form-row">
+                  <%= form.label :name, "* Route Name" %>
+                  <div class="form-field-content">
+                    <%= form.text_field :name, placeholder: true, class: "input" %>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="column">
+            <fieldset class="form-fieldset">
+              <div class="form-table">
+                <div class="form-row">
+                  <label>Distance (km)</label>
+                  <div class="form-field-content">
+                    <%= form.number_field :distance_in_km, :value => (number_with_precision(form.object.distance.km, :precision => 2) || 0), step: "any", 'data-vessel-routes-editor-target': 'distance', readonly: true %>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <label>1st Part Distance (km)</label>
+                  <div class="form-field-content">
+                    <%= form.number_field :first_half_distance_in_km, :value => (number_with_precision(form.object.first_half_distance.km, :precision => 2) || 0), step: 'any' %>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+
+      <!-- Google maps -->
+      <div class="columns">
+        <div class="column p-b-none">
+          <div class="gmap-canvas" id="map" data-vessel-routes-editor-target="map">
+            Google maps here
+          </div>
+        </div>
+      </div>
+
+      <%= render partial: 'fleet/vessel_waypoints/waypoints', locals: { waypoints: form.object.waypoints } %>
+    <% end %>
+  </div>
+</div>

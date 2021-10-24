@@ -1,0 +1,29 @@
+<div
+  id="edit_vessel"
+  class="s-modal"
+  data-controller="vessels-editor"
+  data-vessels-editor-id="<%=@vessel.id-%>"
+  role="modal"
+>
+  <header class="s-modal-header">
+    <div class="columns is-mobile is-align-middle">
+      <div class="column is-one-third" data-action="click->vessels-editor#close">
+        <span class="icon">
+          <i class="fas fa-times"></i>
+        </span>
+      </div>
+      <div class="column has-text-centered">
+        <h2 class="title is-5" id="modal_header_title">
+          <%= @vessel&.name || 'New Vessel' %>
+        </h2>
+      </div>
+      <div class="column has-text-right" />
+    </div>
+  </header>
+  <div class="s-modal-content modal-fluid">
+    <% unless @vessel.new_record? %>
+      <%= render 'tabs' %>
+    <% end %>
+    <%= render "form" %>
+  </div>
+</div>

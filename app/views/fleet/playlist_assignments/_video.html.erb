@@ -1,0 +1,17 @@
+<div class="select-video">
+  <div
+    class="video"
+    data-controller="selectable"
+    data-selectable-id-value="<%= video.id %>"
+    data-selectable-selected-class="selectable--selected"
+    data-action="click->selectable#toggle"
+  >
+    <span class="video-duration">
+      <%= format_duration(video.duration_in_seconds) %>
+    </span>
+    <% if video.content.previewable? %>
+      <%= image_tag url_for(video.content.preview(resize: '250x160')), style: 'pointer-events: none' %>
+    <% end %>
+  </div>
+  <p><%= video.name %></p>
+</div>

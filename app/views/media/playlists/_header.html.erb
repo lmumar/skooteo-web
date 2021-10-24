@@ -1,0 +1,70 @@
+<div class="header">
+  <div class="d-flex header-wrap">
+    <span class="icon">
+      <i class="fas fa-file-video"></i>
+    </span>
+    <h1 class="title is-inline-block">My Ad Videos</h1>
+  </div>
+  <div class="d-flex">
+    <div class="tabs is-inline-block">
+      <ul data-target="videos.tabs" data-controller="highlight" data-highlight-selected-value="1">
+        <li
+          class="is-active"
+          data-tag="playlist"
+          data-highlight-target="item"
+          data-action="click->highlight#select"
+          data-key="1"
+        >
+          <%= link_to media_playlists_path, 'data-turbo-frame' => 'videos_container' do %>
+            <span class="icon is-small"><i class="fas fa-clone"></i></span>
+            <span>Playlist</span>
+          <% end %>
+        </li>
+        <li
+          data-tag="approved"
+          data-highlight-target="item"
+          data-action="click->highlight#select"
+          data-key="2"
+        >
+          <%= link_to media_videos_path(status: 'approved'), 'data-turbo-frame' => 'videos_container' do %>
+            <span class="icon is-small"><i class="fas fa-thumbs-up"></i></span>
+            <span>Approved</span>
+          <% end %>
+        </li>
+        <li
+          data-tag="pending"
+          data-highlight-target="item"
+          data-action="click->highlight#select"
+          data-key="3"
+        >
+          <%= link_to media_videos_path(status: 'pending'), 'data-turbo-frame' => 'videos_container' do %>
+            <span class="icon is-small"><i class="fas fa-ellipsis-h"></i></span>
+            <span>Pending</span>
+          <% end %>
+        </li>
+        <li
+          data-tag="rejected"
+          data-highlight-target="item"
+          data-action="click->highlight#select"
+          data-key="4"
+        >
+          <%= link_to media_videos_path(status: 'rejected'), 'data-turbo-frame' => 'videos_container' do %>
+            <span class="icon is-small"><i class="fas fa-thumbs-down"></i></span>
+            <span>Rejected</span>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="d-flex">
+    <div>
+      <%= link_to new_media_video_path, class: 'button is-success',
+        'data-controller': 'links', 'data-action': 'click->links#visit', 'data-links-turbo-value': 'true' do %>
+        <span class="icon">
+          <i class="fas fa-upload"></i>
+        </span>
+        <span>UPLOAD NEW VIDEO</span>
+      <% end %>
+    </div>
+  </div>
+</div>

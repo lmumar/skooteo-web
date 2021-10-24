@@ -1,0 +1,50 @@
+<div class="columns is-multiline">
+  <% if route_schedules.size.zero? %>
+    <div class="column">
+      <article class="message is-warning">
+      <div class="message-body">
+        Sorry, no vessel schedules found. Try changing the <strong>Trip Start Date</strong> or you can also try including more companies in your search criteria.
+      </div>
+      </article>
+    </div>
+  <% else %>
+    <% route_schedules.group_by{ |schedule| schedule.route }.each do |route, group| %>
+      <div class="column is-half-table is-one-quarter-desktop">
+        <div
+          data-controller="selectable"
+          data-selectable-id-value="<%=route.id%>"
+          data-selectable-selected-class="is-active"
+          class="box"
+        >
+          <h2><%= h "#{route.name} (#{route.company.name})" %></h2>
+          <div class="details">
+            <div class="details-entry">
+              <span><%= pluralize(group.size, 'Trip') %></span>
+            </div>
+            <div class="details-entry">
+              <span><%= number_with_delimiter @route_spots[route.id][:regular] %></span>
+              <span>Regular</span>
+            </div>
+            <div class="details-entry">
+              <div class="details-entry">
+                <span><%= number_with_delimiter @route_spots[route.id][:premium] %></span>
+                <span>Premium</span>
+              </div>
+            </div>
+          </div>
+          <div class="actions">
+            <a class="button is-success is-outlined select-route" data-action="click->selectable#toggle">
+              Select Route
+            </a>
+            <a class="button is-active is-success remove-route" data-action="click->selectable#toggle">
+              <span class="icon m-r-xxs">
+                <svg class="svg-inline--fa fa-times-circle fa-w-16" aria-hidden="true" data-prefix="far" data-icon="times-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path></svg><!-- <i class="far fa-times-circle"></i> -->
+              </span>
+              Remove Route
+            </a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,3 @@
+<% turbo_stream.replace 'user_list' do %>
+  <%= render partial: 'list', collection: @companies.results, as: :company  %>
+<% end %>

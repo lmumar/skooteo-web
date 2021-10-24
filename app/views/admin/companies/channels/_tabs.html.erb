@@ -1,0 +1,10 @@
+<ul>
+  <li class="<%= active_css_iftrue { ['channels', 'channel_playlists'].include?(controller_name) } %>">
+    <%= link_to admin_company_channels_path(@company) do %>
+      <span class="icon is-small">
+        <i class="fas fa-sign-in-alt"></i>
+      </span>
+      <span>Video Channels</span>
+    <% end %>
+  </li>
+</ul>

@@ -1,0 +1,7 @@
+<tr data-id="<%=video.id%>" data-status="<%=video.status%>" data-url="<%=url_for(video.content)%>" data-action="click->admin-videos#onShowvideo">
+  <td><%= h video.name %></td>
+  <td><%= video.status %></td>
+  <td><%= h video.creator.full_name %></td>
+  <td><%= h video.company.name %></td>
+  <td><%= l video.created_at, format: :short %></td>
+</tr>

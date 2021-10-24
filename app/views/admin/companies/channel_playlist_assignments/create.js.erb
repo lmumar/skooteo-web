@@ -1,0 +1,2 @@
+var playlist = document.querySelector('.playlist > [data-id="<%=@playlist.id%>"]');
+playlist.outerHTML = "<%=j(render partial: '/admin/companies/channel_playlists/playlist', object: @playlist)%>";

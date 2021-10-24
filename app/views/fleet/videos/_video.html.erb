@@ -1,0 +1,42 @@
+<div class="list-video" data-id="<%=video.id%>" id="<%=dom_id(video)%>">
+  <div
+    class="video"
+    data-playlist_video_id="<%=video.id%>"
+    data-playlist_video_url="<%=url_for(video.content)%>"
+    data-action="click->videos#onClickVideo"
+  >
+    <span class="video-duration">
+      <%= format_duration(video.duration_in_seconds) %>
+    </span>
+    <% if video.content.previewable? %>
+      <%= image_tag video.content.preview(resize: '250x160').processed.url, style: 'pointer-events: none' %>
+    <% end %>
+  </div>
+  <p class="title"><%= h video.name %></p>
+  <% if video.expire_at? %>
+    <small>Expiry: Date Last Updated: <%= l video.expire_at.to_date, format: :short %></small>
+  <% end %>
+  <% if video.approved? %>
+    <small>Approved: <%= l video.events.last.created_at, format: :short %></small>
+  <% end %>
+  <div class="list-video-actions">
+    <%= link_to edit_fleet_video_path(video), class: 'button is-outlined',
+      'data-controller': 'links', 'data-action': 'click->links#visit', 'data-links-turbo-value': 'true' do %>
+      <span>Edit</span>
+      <span class="icon is-small">
+        <i class="fas fa-pencil-alt"></i>
+      </span>
+    <% end %>
+    <% if policy(video).destroy? %>
+      <%= form_tag fleet_video_path(video), class: 'button_to', method: :delete,
+        data: { controller:  "form-submit-confirmation", "form-submit-confirmation-message-value": "Are you sure?", action: "submit->form-submit-confirmation#confirm" } do %>
+        <button class="button is-primary is-outlined" type="submit">
+          <span>Delete</span>
+          <span class="icon is-small">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="s-modal-content">
+  <div class="select-videos">
+    <% @videos.each do |video| %>
+      <div class="select-video" data-action="click->playlist-assignment#clickVideo" data-id="<%=video.id%>">
+        <div
+          class="video"
+          data-video_id="<%= video.id %>"
+          data-playlist_video_url="<%=url_for(video.content)%>"
+        >
+          <span class="video-duration">
+            <%= format_duration(video.duration_in_seconds) %>
+          </span>
+          <% if video.content.previewable? %>
+            <%= image_tag video.content.preview(resize: '250x160'), style: 'pointer-events: none' %>
+          <% end %>
+        </div>
+        <p><%= video.name %></p>
+      </div>
+    <% end %>
+  </div>
+</div>

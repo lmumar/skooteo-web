@@ -1,0 +1,12 @@
+<tr id="<%=dom_id(company)%>">
+  <td>
+    <%= link_to company.name, edit_admin_company_path(company),
+      data: { controller: 'links', 'links-turbo-value': true, action: 'click->links#visit' } %>
+  </td>
+  <td><%= company.time_zone %></td>
+  <td><%= company.demo ? 'Yes' : '' %></td>
+  <td>
+    <%= link_to 'Manage Channels', admin_company_channels_path(company) %> |
+    <%= link_to 'Generate Video Play Logs', new_admin_company_video_play_log_path(company), remote: true %>
+  </td>
+</tr>

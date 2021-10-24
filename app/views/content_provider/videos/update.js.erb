@@ -1,0 +1,6 @@
+var modal = document.querySelector('.s-modal');
+modal.innerHTML = "<%=j(render partial: 'form')-%>";
+swal({
+    title: "Video updated successfully!",
+    icon: "success"
+});

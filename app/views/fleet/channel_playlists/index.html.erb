@@ -1,0 +1,13 @@
+<%= turbo_stream_from 'fleet:playlist' %>
+<div data-controller="playlist" data-playlist-ns="fleet">
+  <%= render 'fleet/channels/header' %>
+  <div class="content-group">
+    <div class="columns m-b-none">
+      <div class="column has-text-right">
+        <div class="playlist" id="playlists">
+          <%= render partial: 'playlist', collection: @playlists %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

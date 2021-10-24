@@ -1,0 +1,69 @@
+<div id="vessel-info-container">
+  <%= form_with(model: [:fleet, @vessel.vehicleable], data: {target: 'vessels-editor.form'}, class: "is-multifields") do |form| %>
+    <div class="columns">
+        <div class="column">
+          <fieldset class="form-fieldset">
+            <header class='has-text-centered m-b-md' data-controller='file-input'>
+              <div>
+                <% if @vessel.image.attached? %>
+                  <%= image_tag @vessel.image, width: '128', height: '128', 'data-target': 'file-input.preview' %>
+                <% else %>
+                  <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" width='128' height='128' data-target='file-input.preview'>
+                <% end %>
+              </div>
+              <p>
+                <button class='button is-small is-primary is-light' data-action='click->file-input#change'>
+                  Change vessel image ...
+                </button>
+              </p>
+              <%= form.file_field :image, hidden: true, 'data-target': 'file-input.file', 'data-action': 'change->file-input#changed' %>
+            </header>
+            <div class="form-table m-b-md">
+              <div class="form-row">
+                <label>Vessel Name</label>
+                <div class="form-field-content">
+                  <%= form.text_field :name, required: true %>
+                </div>
+              </div>
+              <div class="form-row">
+                <label>Vessel Type</label>
+                <div class="form-field-content">
+                  <div class="select">
+                    <%= vessel_kind_select form %>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <label>Passenger Capacity</label>
+                <div class="form-field-content">
+                  <%= form.number_field :capacity, required: true %>
+                </div>
+              </div>
+              <div class="form-row">
+                <label>Per spot price US$</label>
+                <div class="form-field-content">
+                  <%= form.number_field :credits_per_spot, step: 0.5, required: true %>
+                </div>
+              </div>
+              <div class="form-row">
+                <label>Status</label>
+                <div class="form-field-content">
+                  <div class="select">
+                    <%= form.select :status, vehicle_status_options %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <article>
+              <div>
+                <button class="button is-primary" type="submit">
+                  Save
+                </button>
+                <span id="save_notification"></span>
+              </div>
+            </article>
+          </fieldset>
+        </div>
+    </div>
+  <% end %>
+</div>

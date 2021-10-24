@@ -1,0 +1,44 @@
+<%= form_with(model: [:admin, @company, @company.credits.build ]) do |form| %>
+  <fieldset class="form-fieldset">
+    <legend class="form-legend">Credits</legend>
+    <% unless @credits.results.length.zero? %>
+      <strong>
+        Current Balance
+        <%= number_to_currency @company.credits.sum(:amount), unit: '' %>
+      </strong>
+    <% end %>
+    <div class="form-table">
+      <div class="form-row">
+        <%= form.label :particulars %>
+        <div class="form-field-content">
+          <%= form.text_field :particulars, placeholder: true %>
+        </div>
+      </div>
+      <div class="form-row">
+        <%= form.label :transaction_code %>
+        <div class="form-field-content">
+          <div class="select">
+          <%= form.select :transaction_code, transaction_code_options %>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <%= form.label :amount %>
+        <div class="form-field-content">
+          <%= form.number_field :amount, placeholder: true %>
+        </div>
+      </div>
+      <div class="form-row">
+        <%= form.label :price_per_credit %>
+        <div class="form-field-content">
+          <%= form.number_field :price_per_credit, placeholder: true, min: 1 %>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field-content">
+          <%= form.button 'Add Credits', data: {'disabled-with': 'Saving ...'}, class: 'button is-pulled-right' %>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+<% end %>

@@ -1,0 +1,64 @@
+default: &default
+  vessel:
+    marina_official_no:
+      label: 'Marina Official No'
+      type: 'text'
+    operator_name:
+      label: 'Operator Name'
+      type: 'text'
+    place_of_registry:
+      label: 'Place of Registry'
+      type: 'text'
+    year_built:
+      label: 'Year Built'
+      type: 'text'
+    date_deployed:
+      label: 'Date Deployed'
+      type: 'date'
+    vessel_type:
+      label: 'Vessel Type'
+      type: 'select'
+      options:
+        - ['Select', '']
+        - ['Passenger Fast Craft', 'passenger_fast_craft']
+        - ['Ro-Ro Fast Craft', 'roro_fast_craft']
+        - ['Passenger Ferry (Small)', 'small_passenger_ferry']
+        - ['Passenger Ferry (Large)', 'large_passenger_ferry']
+        - ['Ro-Ro', 'roro']
+        - ['Waterbus', 'waterbus']
+    passenger_capacity:
+      label: 'Capacity'
+      type: 'text'
+    length_in_meters:
+      label: 'Length (Meters)'
+      type: 'numeric'
+    breadth_in_meters:
+      label: 'Breadth (Meters)'
+      type: 'numeric'
+    depth_in_meters:
+      label: 'Depth (Meters)'
+      type: 'numeric'
+    loa_in_meters:
+      label: 'LOA (Meters)'
+      type: 'numeric'
+    lbp_in_meters:
+      label: 'LBP (Meters)'
+      type: 'numeric'
+    draft_in_meters:
+      label: 'Draft (Meters)'
+      type: 'numeric'
+    grt_in_tons:
+      label: 'GRT (Tons)'
+      type: 'numeric'
+    nrt_in_tons:
+      label: 'NRT (Tons)'
+      type: 'numeric'
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

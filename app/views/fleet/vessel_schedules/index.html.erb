@@ -1,0 +1,76 @@
+<div>
+  <div class="header">
+    <div class="d-flex header-title">
+      <span class="icon">
+        <svg class="svg-inline--fa fa-calendar-alt fa-w-14" aria-hidden="true" data-prefix="fas" data-icon="calendar-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm116 204c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12H76c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm128 128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40zm0-128c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-40z"></path></svg><!-- <i class="fas fa-calendar-alt"></i> -->
+      </span>
+      <h1 class="title is-inline-block">Schedules</h1>
+    </div>
+  </div>
+
+  <div class="filters">
+    <%= form_with url: fleet_vessel_schedules_path, method: :get, local: true do |f| %>
+      <div class="field is-inline-block">
+        <div class="control">
+          <p>Routes:</p>
+          <div class="select">
+            <%= f.select :route_id, vessel_routes_options, selected: @route&.id, include_blank: true %>
+          </div>
+        </div>
+      </div>
+      <div class="field is-inline-block">
+        <div class="control">
+          <p>Month: </p>
+          <div class="select">
+            <%= select_month @period, {} %>
+          </div>
+        </div>
+      </div>
+      <div class="field is-inline-block">
+        <div class="control">
+          <p>Year: </p>
+          <div class="select">
+            <%= select_year @period, {}  %>
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-inline-block">
+        <div class="control">
+          <button type="submit" class="button is-info submit is-outlined">
+            Show
+          </button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="box-group fleet-box-group">
+    <div class="columns">
+      <div class="column">
+        <table class="table is-fullwidth">
+          <thead>
+            <tr>
+              <th>Route</th>
+              <th>ETD</th>
+              <th>ETA</th>
+              <th>Vessel</th>
+              <th>Capacity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @vessel_schedules.each do |schedule| %>
+              <tr>
+                <td><%= h schedule.route.name %></td>
+                <td><%= schedule.etd %></td>
+                <td><%= schedule.eta %></td>
+                <td><%= h schedule.vehicle.name %></td>
+                <td><%= schedule.vehicle.capacity %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

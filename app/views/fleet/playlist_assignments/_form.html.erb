@@ -1,0 +1,32 @@
+<header class="s-modal-header">
+  <div class="columns is-mobile">
+    <div class="column is-one-third" data-action="click->base#close">
+      <span class="icon">
+        <i class="fas fa-times"></i>
+      </span>
+    </div>
+    <div class="column has-text-centered">
+      <h2 class="title is-5">
+        Add Videos To Playlist
+      </h2>
+    </div>
+    <div class="column is-one-third has-text-right">
+      <a disabled
+        class="button is-primary"
+        data-action="click->playlist-video-select#save"
+        data-playlist-video-select-target="addButton"
+      >
+        <span class="icon">
+          <i class="fas fa-plus"></i>
+        </span>
+        <span>Add selected videos</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="s-modal-content">
+  <div class="select-videos">
+    <%= render partial: 'video', collection: @videos %>
+  </div>
+</div>

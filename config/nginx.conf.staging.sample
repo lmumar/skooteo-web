@@ -1,0 +1,8 @@
+server {
+  listen 80 default_server;
+  server_name ec2-54-169-191-227.ap-southeast-1.compute.amazonaws.com;
+  passenger_enabled on;
+  passenger_app_env production;
+  passenger_ruby /home/deploy/.rvm/gems/ruby-2.6.3/wrappers/ruby;
+  root /home/deploy/skooteo/current/public;
+}

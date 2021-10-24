@@ -1,0 +1,5 @@
+development:
+  db: node-playlists-development
+
+production:
+  db: <%= ENV.fetch("FIREBASE_DB") { 'node-playlists-staging' } %>

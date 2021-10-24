@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Skooteo</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <script type="text/javascript">
+      window.cpms = <%=JSON.generate(Spot.cpms.to_h.except(:all)).html_safe-%>
+    </script>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbo-track': 'reload' %>
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" data-mutate-approach="sync"></script>
+    <%= yield :head_tags %>
+    <%= yield :head %>
+    <%= turbo_include_tags %>
+  </head>
+
+  <body data-controller_name="<%= controller_path %>">
+    <%= render partial: 'shared/modal' %>
+    <div class="container is-fullw">
+      <div class="main-wrap">
+        <div class="sidebar">
+          <%= render 'shared/sidebar' %>
+        </div>
+
+        <div class="main-content">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

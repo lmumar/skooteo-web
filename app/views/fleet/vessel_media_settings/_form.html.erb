@@ -1,0 +1,142 @@
+<%= form_with(url: fleet_save_vessel_media_settings_path(@vessel_route), scope: 'vessel_route', id: 'media_setting_form') do |form| %>
+  <div class="columns" data-controller="vessel-mediastats">
+      <div class="column">
+        <div class="m-b-md">
+          <button class="button is-primary" type="submit">
+            Save
+          </button>
+          <span id="save_notification"/>
+        </div>
+        <fieldset class="form-fieldset">
+          <div class="form-table">
+            <div class="form-row">
+              <%= form.label :status, 'Travel Duration (hr:m:s)' %>
+              <%= render partial: 'duration', locals: {
+                form: form, duration: @vessel_route.estimated_travel_duration,
+                label_h: :'ett[hh]', label_m: :'ett[mm]', label_s: :'ett[ss]', target: 'travelTime', trigger_action: true
+              } %>
+            </div>
+            <% if Current.company.addons.enabled?(Addon.available.media) %>
+              <div class="form-row">
+                <%= form.label :status, 'On-boarding (hr:m:s)' %>
+                <%= render partial: 'duration', locals: {
+                  form: form, duration: @vessel_route.onboarding_duration, trigger_action: true,
+                  label_h: :'onboarding[hh]', label_m: :'onboarding[mm]', label_s: :'onboarding[ss]', target: 'onboarding'
+                } %>
+              </div>
+
+              <div class="form-row">
+                <%= form.label :status, 'Off-boarding (hr:m:s)' %>
+                <%= render partial: 'duration', locals: {
+                  form: form, duration: @vessel_route.offboarding_duration, trigger_action: true,
+                  label_h: :'offboarding[hh]', label_m: :'offboarding[mm]', label_s: :'offboarding[ss]', target: 'offboarding'
+                } %>
+              </div>
+
+              <div class="form-row">
+                <%= form.label :status, 'Arrival routine trigger (hr:m:s)' %>
+                <%= render partial: 'duration', locals: {
+                  form: form, duration: @vessel_route.arrival_trigger_duration,
+                  label_h: :'arrival_trigger[hh]', label_m: :'arrival_trigger[mm]', label_s: :'arrival_trigger[ss]'
+                } %>
+              </div>
+            <% end %>
+          </div>
+        </fieldset>
+
+        <% if Current.company.addons.enabled?(Addon.available.advertising) %>
+          <fieldset class="form-fieldset">
+            <div class="form-table">
+              <div class="form-row">
+                <%= form.label :status, 'Regular ads (hr:m:s)' %>
+                <%= render partial: 'duration', locals: {
+                  form: form, duration: @vessel_route.regular_ads_duration, target: 'regAdsDuration', trigger_action: true,
+                  label_h: :'regular_ads[hh]', label_m: :'regular_ads[mm]', label_s: :'regular_ads[ss]'
+                } %>
+              </div>
+
+              <div class="form-row">
+                <%= form.label :status, 'Premium ads (hr:m:s)' %>
+                <%= render partial: 'duration', locals: {
+                  form: form, duration: @vessel_route.premium_ads_duration, target: 'prmAdsDuration', trigger_action: true,
+                  label_h: :'premium_ads[hh]', label_m: :'premium_ads[mm]', label_s: :'premium_ads[ss]'
+                } %>
+              </div>
+
+              <div class="form-row">
+                <%= form.label :status, 'Regular segment (hr:m:s)' %>
+                <%= render partial: 'duration', locals: {
+                  form: form, duration: @vessel_route.regular_ads_segment_duration,
+                  label_h: :'regular_ads_segment[hh]', label_m: :'regular_ads_segment[mm]', label_s: :'regular_ads_segment[ss]'
+                } %>
+              </div>
+
+              <div class="form-row">
+                <%= form.label :status, 'Premium segment (hr:m:s)' %>
+                <%= render partial: 'duration', locals: {
+                  form: form, duration: @vessel_route.premium_ads_segment_duration,
+                  label_h: :'premium_ads_segment[hh]', label_m: :'premium_ads_segment[mm]', label_s: :'premium_ads_segment[ss]'
+                } %>
+              </div>
+
+            </div>
+          </fieldset>
+        <% else %>
+          <article class="message is-link">
+            <div class="message-header">
+              <p>Advertising disabled</p>
+            </div>
+            <div class="message-body">
+              Adding advertising configuration is disabled please contact skooteo for
+              details how you can enable this.
+            </div>
+          </article>
+        <% end %>
+      </div>
+      <div class="column">
+        <% if Current.company.addons.enabled?(Addon.available.media) %>
+          <div class="media-overview m-b-md m-t-md">
+            <div data-vessel-mediastats-target="onboardingPctStat" class="media-onboard"></div>
+            <div data-vessel-mediastats-target="totalAdsPctStat" class="media-ads"></div>
+            <div data-vessel-mediastats-target="offboardingPctStat" class="media-offboard"></div>
+          </div>
+          <div class="legends m-l-sm m-r-sm m-b-lg">
+            <div class="is-vcenter m-b-xs">
+              <span class="media-onboard"></span>
+              <em data-vessel-mediastats-target="onboardingStat">
+                On-boarding: 55 minutes
+              </em>
+            </div>
+            <div class="is-vcenter m-b-xs">
+              <span class="media-ads"></span>
+              <em data-vessel-mediastats-target="totalAdsStat">
+                Ads: 55 minutes
+              </em>
+            </div>
+            <div class="is-vcenter m-b-xs">
+              <span class="media-all"></span>
+              <em data-vessel-mediastats-target="totalPlaybackStat">
+                Entertainment: 120 minutes
+              </em>
+            </div>
+            <div class="is-vcenter m-b-xs">
+              <span class="media-offboard"></span>
+              <em data-vessel-mediastats-target="offboardingStat">
+                Off-boarding: 5 minutes
+              </em>
+            </div>
+          </div>
+        <% else %>
+          <article class="message is-info">
+            <div class="message-header">
+              <p>Media disabled</p>
+            </div>
+            <div class="message-body">
+              Adding media configuration is disabled please contact skooteo for
+              details how you can enable this.
+            </div>
+          </article>
+        <% end %>
+      </div>
+  </div>
+<% end %>

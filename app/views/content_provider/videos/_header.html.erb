@@ -1,0 +1,30 @@
+<div class="header">
+  <div class="d-flex header-wrap">
+    <span class="icon">
+      <i class="fas fa-file-video"></i>
+    </span>
+    <h1 class="title is-inline-block">Videos</h1>
+  </div>
+  <div class="d-flex">
+    <div class="tabs is-inline-block">
+      <ul data-target="videos.tabs">
+        <li class="is-active" data-tag="playlist">
+          <%= link_to content_provider_videos_path do %>
+            <span class="icon is-small"><i class="fas fa-clone"></i></span>
+            <span>My Videos</span>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="d-flex">
+    <div>
+      <%= link_to new_content_provider_video_path, remote: true, class: 'button is-success' do %>
+        <span class="icon">
+          <i class="fas fa-upload"></i>
+        </span>
+        <span>UPLOAD NEW VIDEO</span>
+      <% end %>
+    </div>
+  </div>
+</div>

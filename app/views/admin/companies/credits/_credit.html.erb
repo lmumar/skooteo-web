@@ -1,0 +1,8 @@
+<tr>
+  <td><%= distance_of_time_in_words_to_now credit.created_at %></td>
+  <td><%= h credit.transaction_code %></td>
+  <td><%= h credit.particulars %></td>
+  <td><%= number_to_currency credit.amount, unit: '' %></td>
+  <td><%= number_to_currency credit.price_per_credit, unit: '' %></td>
+  <td><%= number_to_currency credit.running_balance, unit: '' %></td>
+</tr>

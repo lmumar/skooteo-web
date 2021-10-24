@@ -1,0 +1,17 @@
+<div data-controller="videos">
+  <%= render 'header' %>
+  <div class="box-group my-ad-videos">
+    <div class="columns">
+      <div class="column">
+        <div class="list-videos">
+          <% @videos.in_groups(4) do |group| %>
+            <%= render group.compact %>
+          <% end %>
+        </div>
+        <footer>
+          <%= will_paginate @videos, page_links: false, renderer: (renderer ||= LinkPaginationHelper::LinkRenderer), params: (options ||= {}) %>
+        </footer>
+      </div>
+    </div>
+  </div>
+</div>

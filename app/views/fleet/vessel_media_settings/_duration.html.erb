@@ -1,0 +1,14 @@
+<div class="form-field-content">
+  <%= form.number_field label_h, value: duration.parts[:hours] ,
+    placeholder: 'hr', class: "input input-group", min: 0, max: 59,
+    'data-vessel-mediastats-target': (local_assigns[:target] && target) || nil,
+    'data-action': ((local_assigns[:trigger_action] && 'change->vessel-mediastats#update') || nil) %>
+  <%= form.number_field label_m, value: duration.parts[:minutes],
+    placeholder: 'm', class: "input input-group",  min: 0, max: 59,
+    'data-vessel-mediastats-target': (local_assigns[:target] && target) || nil,
+    'data-action': ((local_assigns[:trigger_action] && 'change->vessel-mediastats#update') || nil) %>
+  <%= form.number_field label_s, value: duration.parts[:seconds],
+    placeholder: 's', class: "input input-group", min: 0, max: 59,
+    'data-vessel-mediastats-target': (local_assigns[:target] && target) || nil,
+    'data-action': ((local_assigns[:trigger_action] && 'change->vessel-mediastats#update') || nil) %>
+</div>

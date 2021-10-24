@@ -1,0 +1,43 @@
+<header class="s-modal-header">
+  <div class="columns is-mobile is-align-middle">
+    <div class="column is-one-third" data-action="click->base#close">
+      <span class="icon">
+        <i class="fas fa-times"></i>
+      </span>
+    </div>
+    <div class="column has-text-centered">
+      <h2 class="title is-5">
+        <%= @playlist&.name || 'New Playlist' %>
+      </h2>
+    </div>
+    <div class="column has-text-right">
+    </div>
+  </div>
+</header>
+
+<div class="s-modal-content">
+    <%= form_with(model: [:fleet, @playlist.becomes(Playlist)]) do |form| %>
+      <%= form.hidden_field :type, value: params[:playlist_type] || 'OnboardingPlaylist' %>
+      <div class="columns">
+        <fieldset class="form-fieldset">
+          <legend class="form-legend">Playlist Details</legend>
+          <div class="form-table m-b-md">
+            <div class="form-row">
+              <%= form.label :name %>
+              <div class="form-field-content">
+                <%= form.text_field :name, placeholder: true, required: true %>
+              </div>
+            </div>
+          </div>
+          <article>
+            <div>
+              <button class="button is-primary" type="submit">
+                Save
+              </button>
+              <span id="save_notification"></span>
+            </div>
+          </article>
+        </fieldset>
+      </div>
+    <% end %>
+</div>

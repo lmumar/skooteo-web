@@ -1,0 +1,18 @@
+<%= turbo_stream_from Current.user, 'media:videos' %>
+<div data-controller="videos">
+  <%= render partial: 'media/playlists/header' %>
+  <turbo-frame id='videos_container'>
+    <div class="box-group my-ad-videos">
+      <div class="columns">
+        <div class="column">
+          <div class="list-videos" id="list_videos">
+            <% @videos.results.in_groups(4) do |group| %>
+              <%= render group.compact %>
+            <% end %>
+          </div>
+          <%= render partial: 'shared/pager', object: @videos %>
+        </div>
+      </div>
+    </div>
+  </turbo-frame>
+</div>

@@ -1,0 +1,7 @@
+<div
+  id="current_routes"
+  data-controller="highlight"
+  data-highlight-selected-value="<%=@route&.id%>"
+>
+  <%= render partial: 'route', collection: @routes.results %>
+</div>

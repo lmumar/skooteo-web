@@ -1,0 +1,2 @@
+class OffboardingPlaylist < Playlist
+end

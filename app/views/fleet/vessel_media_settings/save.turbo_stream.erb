@@ -1,0 +1,6 @@
+<%= turbo_stream.replace "media_setting_form" do %>
+  <%= render 'form' %>
+<% end %>
+<%= turbo_stream.replace "save_notification" do %>
+  <%= render partial: 'shared/save_notification', object: @vessel_route, as: :record %>
+<% end %>

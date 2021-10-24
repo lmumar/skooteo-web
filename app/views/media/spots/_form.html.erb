@@ -1,0 +1,42 @@
+<div
+  class="s-modal"
+  role="modal"
+  data-controller="spot-booking"
+  data-spot-booking-total-credits-value="<%=current_credits%>"
+>
+  <%= form_with url: media_spots_path_from_booking_state(@spot_booking),
+    model: @spot_booking, data: { 'spot-booking-target' => 'form' } do |form| %>
+    <%= hidden_field_tag 'start_date', params[:start_date] %>
+    <header class="s-modal-header">
+      <div class="columns is-mobile is-align-middle">
+        <div class="column is-one-third" data-action="click->spot-booking#close">
+          <span class="icon">
+            <i class="fas fa-times"></i>
+          </span>
+        </div>
+        <div class="column has-text-centered">
+          <h2 class="title is-5">
+            Calculate Spots
+          </h2>
+        </div>
+        <div class="column is-one-third has-text-right">
+          <% unless @spot_booking.confirmed? %>
+            <button type="submit" class="button is-primary" data-action="click->spot-booking#submit">
+              <%= @spot_booking.initialised? ? 'Calculate' : 'Confirm' %>
+            </button>
+          <% end %>
+        </div>
+      </div>
+    </header>
+    <div class="s-modal-content modal-fluid">
+      <div class="columns">
+        <div class="column" id="spot-options">
+          <%= render partial: 'spot_options', locals: {form: form} %>
+        </div>
+        <div class="column is-4">
+          <%= render partial: 'summary', locals: {form: form} %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

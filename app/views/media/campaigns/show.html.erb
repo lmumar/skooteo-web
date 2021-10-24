@@ -1,0 +1,9 @@
+<div
+  id="campaigns_editor"
+  class="s-modal s-modal-sheet"
+  data-controller="campaigns--assign-playlist closer"
+  data-campaigns--assign-playlist-spot-ids-value="<%=@campaigns.map(&:spots).flatten.map(&:id).uniq.join(',')-%>"
+  role="modal"
+>
+  <%= render "summary" %>
+</div>

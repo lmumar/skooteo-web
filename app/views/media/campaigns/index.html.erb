@@ -1,0 +1,27 @@
+<div data-controller="campaigns">
+  <%= render partial: 'header' %>
+  <div class="campaign-group">
+    <div data-target="campaigns.calendarView">
+    </div>
+    <div class="legend m-t-md">
+      <div class="inline-block m-l-md">
+        <div class="inline-block legend-box gray"></div>
+        <div class="inline-block">
+          <span>Campaigns with default playlist</span>
+        </div>
+      </div>
+      <div class="inline-block">
+        <div class="inline-block legend-box green"></div>
+        <div class="inline-block">
+          <span>Campaigns with assigned playlist</span>
+        </div>
+      </div>
+      <div class="inline-block m-l-md">
+        <div class="inline-block legend-box has-background-danger"></div>
+        <div class="inline-block">
+          <span>Campaigns with no playlist</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

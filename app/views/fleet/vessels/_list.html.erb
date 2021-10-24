@@ -1,0 +1,14 @@
+<div id="vessels-list" class="box-group fleet-box-group">
+  <div class="columns is-multiline" id="vessels_list">
+    <% @vessels.results.each do |vessel| %>
+      <div
+        id="<%=dom_id(vessel)%>"
+        data-url="<%= edit_fleet_vessel_path(vessel) %>"
+        data-id="<%=vessel.id%>"
+        class="column is-half-tablet is-one-third-desktop"
+      >
+        <%= render vessel %>
+      </div>
+    <% end %>
+  </div>
+</div>

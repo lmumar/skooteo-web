@@ -1,0 +1,7 @@
+<%= turbo_stream.replace dom_id(@vessel) do %>
+  <%= render partial: 'vessel', object: @vessel.vehicleable %>
+<% end %>
+
+<%= turbo_stream.replace "save_notification" do %>
+  <%= render partial: 'shared/save_notification', object: @vessel, as: :record %>
+<% end %>

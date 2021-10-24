@@ -1,0 +1,19 @@
+<tr class="schedule-row" id="<%= dom_id(schedule)%>">
+  <td><%= l schedule.etd %></td>
+  <td><%= l schedule.eta %></td>
+  <td><%= h schedule.creator.email %></td>
+  <td>
+    <button
+      data-controller="confirm-action"
+      data-confirm-action-url-value="<%=deactivate_fleet_vessel_route_schedule_path(schedule)%>"
+      data-confirm-action-method-value="POST"
+      data-confirm-action-message-value="Reason"
+      data-action="click->confirm-action#trigger"
+      class="button is-primary <%= params[:inactive] == '1' ? 'is-hidden' : nil %>"
+    >
+      Cancel
+    </button>
+    <%= button_to "Restore", activate_fleet_vessel_route_schedule_path(schedule),
+      class: "button is-info #{params[:inactive] != '1' ? 'is-hidden' : nil}" %>
+  </td>
+</tr>

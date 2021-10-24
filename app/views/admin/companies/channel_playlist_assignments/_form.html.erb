@@ -1,0 +1,29 @@
+<header class="s-modal-header">
+  <div class="columns is-mobile">
+    <div class="column is-one-third" data-action="click->playlist-assignment#close">
+      <span class="icon">
+        <i class="fas fa-times"></i>
+      </span>
+    </div>
+    <div class="column has-text-centered">
+      <h2 class="title is-5">
+        Add Videos To Playlist
+      </h2>
+    </div>
+    <div class="column is-one-third has-text-right">
+      <a disabled
+        class="button is-primary"
+        data-action="click->playlist-assignment#save"
+        data-action_url="/admin/companies/<%=@company.id-%>/channel_playlist_assignments"
+        data-target="playlist-assignment.addButton"
+        data-playlist_id="<%=@playlist.id-%>"
+      >
+        <span class="icon">
+          <i class="fas fa-plus"></i>
+        </span>
+        <span>Add selected videos</span>
+      </a>
+    </div>
+  </div>
+</header>
+<%= render partial: 'videos' %>

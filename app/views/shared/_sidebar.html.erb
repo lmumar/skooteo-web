@@ -1,0 +1,147 @@
+<div class="sidebar-header">
+  <%= image_tag("/images/logo.png", :alt => "skooteo media") %>
+</div>
+
+<div class="profile">
+  <div class="media">
+    <div class="media-content">
+      <div class="content">
+        <p class="m-b-md m-t-sm">
+          <strong><%= Current.person.full_name %></strong>
+          <small class="d-block"><%= [Current.user.role.name, Current.company.name].join ' : '%></small>
+        </p>
+        <%= link_to new_users_password_reset_path do %>
+          <span class="icon"><i class="fas fa-key"></i></span>
+          <span>Reset Password</span>
+        <% end %>
+        <%= link_to sessions_destroy_path do %>
+          <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+          <span>Sign Out</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<% if Current.company.advertiser? %>
+  <nav class="level">
+    <div class="level-item has-text-centered" id="small-info">
+        <div>
+          <p class="heading">Campaigns</p>
+          <p class="heading has-text-danger">
+            <%= format_number(Current.company.campaigns.incoming.count) %>
+          </p>
+        </div>
+      </div><div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Spots</p>
+          <p class="heading has-text-danger">
+            <%= format_number(Current.company.campaigns.incoming.map(&:spots).flatten.sum(&:count)) %>
+          </p>
+        </div>
+      </div><div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Credits</p>
+          <p class="heading">
+            <strong class="has-text-link">
+              <%= format_currency(Current.company.credits.sum(:amount)) %>
+            </strong>
+          </p>
+        </div>
+      </div>
+  </nav>
+<% end %>
+<div class="menu-wrap" data-controller="sidebar">
+  <ul class="sidebar-nav" data-role='["admin"]'>
+    <li data-class="admin/companies">
+      <%= link_to admin_companies_path(company_type: 'fleet_operator', format: 'html') do %>
+        <span class="icon"><i class="far fa-building"></i></span>
+        <span>Companies</span>
+      <% end %>
+    </li>
+    <li data-class="admin/users">
+      <%= link_to admin_users_path(format: 'html') do %>
+        <span class="icon"><i class="fas fa-users"></i></span>
+        <span>Users</span>
+      <% end %>
+    </li>
+    <li data-class="admin/videos">
+      <%= link_to admin_videos_path(format: 'html') do %>
+        <span class="icon"><i class="far fa-thumbs-up"></i></span>
+        <span>Videos</span>
+      <% end %>
+    </li>
+  </ul>
+
+  <ul class="sidebar-nav" data-role='["fleet_operator", "fleet_operator_admin"]'>
+    <li data-class="fleet/vessels">
+      <%= link_to fleet_vessels_url do %>
+        <span class="icon"><i class="fas fa-ship"></i></span>
+        <span>Vessels</span>
+      <% end %>
+    </li>
+    <li data-class="fleet/vessel_schedules">
+      <%= link_to fleet_vessel_schedules_path do %>
+        <span class="icon"><i class="far fa-calendar-alt"></i></span>
+        <span>Schedules</span>
+      <% end %>
+    </li>
+  </ul>
+
+  <ul class="sidebar-nav" data-role='["fleet_operator_admin"]'>
+    <li data-class="fleet/playlists">
+      <%= link_to fleet_playlists_path do %>
+        <span class="icon"><i class="fas fa-bullhorn"></i></span>
+        <span>Announcements</span>
+      <% end %>
+    </li>
+
+    <% if Current.company.addons.enabled?(Addon.available.media) %>
+      <li data-class="fleet/channels">
+        <%= link_to fleet_channels_path do %>
+          <span class="icon"><i class="fas fa-play-circle"></i></span>
+          <span>Entertainment</span>
+        <% end %>
+      </li>
+      <li data-class="fleet/admin/videos">
+        <%= link_to fleet_admin_videos_path(format: 'html') do %>
+          <span class="icon"><i class="fas fa-play"></i></span>
+          <span>Media</span>
+        <% end %>
+      </li>
+    <% end %>
+
+  </ul>
+
+  <ul class="sidebar-nav" data-role='["content_provider"]'>
+    <li data-class="content_provider/videos">
+      <%= link_to content_provider_videos_path do %>
+        <span class="icon"><i class="fas fa-play"></i></span>
+        <span>Media</span>
+      <% end %>
+    </li>
+  </ul>
+
+  <ul class="sidebar-nav" data-role='["advertiser"]'>
+    <li data-class="media/spots">
+      <%= link_to media_spots_path do %>
+        <span class="icon"><i class="fas fa-table"></i></span>
+        <span>Spots</span>
+      <% end %>
+    </li>
+    <li data-class="media/campaigns">
+      <%= link_to media_campaigns_path do %>
+        <span class="icon"><i class="fas fa-file-video"></i></span>
+        <span>Campaigns</span>
+        <% unless Current.company.campaigns.incoming.empty? %>
+          <span class="badge"><%= format_number(Current.company.campaigns.incoming.count) %></span>
+        <% end %>
+      <% end %>
+    </li>
+    <li data-class="media/playlists">
+      <%= link_to media_playlists_path do %>
+        <span class="icon"><i class="fas fa-file-video"></i></span>
+        <span>Videos</span>
+      <% end %>
+    </li>
+  </ul>
+</div>

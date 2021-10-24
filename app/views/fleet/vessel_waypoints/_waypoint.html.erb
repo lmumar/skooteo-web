@@ -1,0 +1,19 @@
+<div
+  class="form-row"
+  data-vessel-routes-editor-target="waypoints"
+>
+  <% if waypoint.sequence.zero? %>
+    <label>Start</label>
+  <% else %>
+    <label>Waypoint</label>
+  <% end %>
+  <div class="form-field-content">
+    <%= text_field_tag "route[waypoints_attributes][#{waypoint.sequence}][name]", waypoint.name, class: 'is-size-7 has-text-weight-normal' %>
+    <%= hidden_field_tag "route[waypoints_attributes][#{waypoint.sequence}][coordinates]", waypoint.coordinates, 'data-vessel-routes-editor-target': 'coordinates' %>
+    <%= hidden_field_tag "route[waypoints_attributes][#{waypoint.sequence}][sequence]", waypoint.sequence %>
+    <%= hidden_field_tag "route[waypoints_attributes][#{waypoint.sequence}][id]", waypoint.id %>
+  </div>
+  <div class="form-field-content">
+    <%= waypoint.coordinates %>
+  </div>
+</div>

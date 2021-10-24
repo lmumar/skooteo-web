@@ -1,0 +1,2 @@
+class OnboardingPlaylist < Playlist
+end

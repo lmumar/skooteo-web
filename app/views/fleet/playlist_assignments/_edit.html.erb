@@ -1,0 +1,9 @@
+<div
+  class="s-modal"
+  role="modal"
+  data-controller="playlist-video-select base"
+  data-playlist-video-select-endpoint-value="<%=fleet_playlist_assignments_path(playlist_id: @playlist.id)%>"
+>
+  <%= render 'form' %>
+</div>
+<%= turbo_stream_from Current.user, 'fleet:playlist_assignment' %>

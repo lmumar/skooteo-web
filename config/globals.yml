@@ -1,0 +1,8 @@
+development:
+  eta_sampler_trigger_in_minutes: 10
+  trip_end_buffer_in_minutes: 1
+
+production:
+  eta_sampler_trigger_in_minutes: 10
+  trip_end_buffer_in_minutes: 1
+

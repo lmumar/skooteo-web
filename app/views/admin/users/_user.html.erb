@@ -1,0 +1,14 @@
+<tr id="<%=dom_id(user)%>">
+  <td>
+    <%= link_to user.email, edit_admin_user_path(user),
+      data: { controller: 'links', 'links-turbo-value': true, action: 'click->links#visit' } %>
+  </td>
+  <td><%= user.person.first_name %></td>
+  <td><%= user.person.last_name %></td>
+  <td><%= h user.company.name %></td>
+  <td>
+    <% if user.last_signin_at %>
+    <%= distance_of_time_in_words_to_now user.last_signin_at %> ago
+    <% end %>
+  </td>
+</tr>

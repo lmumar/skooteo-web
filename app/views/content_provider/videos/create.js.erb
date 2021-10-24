@@ -1,0 +1,8 @@
+var modal = document.querySelector('[role="modal"]');
+var title = modal.querySelector(".title");
+title.innerText = "<%= j @video.name %>";
+modal.innerHTML = "<%= j(render partial: 'form') %>";
+swal({
+    title: "Video created successfully!",
+    icon: "success"
+});

@@ -1,0 +1,10 @@
+<tr id="<%=dom_id(company)%>">
+  <td>
+    <%= link_to company.name, edit_admin_company_path(company),
+      data: { controller: 'links', 'links-turbo-value': true, action: 'click->links#visit' } %>
+  </td>
+  <td><%= number_to_currency company.credits.sum(:amount), unit: '' %></td>
+  <td>
+    <%= link_to 'Generate Billing Details', new_admin_company_billing_detail_path(company) %>
+  </td>
+</tr>

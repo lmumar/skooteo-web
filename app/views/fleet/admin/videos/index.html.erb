@@ -1,0 +1,11 @@
+<div data-controller="fleet-admin-videos">
+  <%= render 'header' %>
+  <turbo-frame id="videos_container">
+    <div class="box-group my-ad-videos">
+      <div class="columns">
+        <%= render partial: 'videos' %>
+      </div>
+    </div>
+  </turbo-frame>
+</div>
+<%= turbo_stream_from Current.user, 'fleet:admin:videos' %>

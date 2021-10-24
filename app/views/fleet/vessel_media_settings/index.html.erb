@@ -1,0 +1,14 @@
+<div data-controller="vessels">
+  <div class="header">
+    <div class="d-flex">
+      <span class="icon"><i class="fas fa-ship"></i></span>
+      <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul class="title">
+          <li><%= link_to 'Vessels', fleet_vessels_path %></li>
+          <li class="is-active"><a href="#" aria-current="page">Routes</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <%= render "list" %>
+</div>

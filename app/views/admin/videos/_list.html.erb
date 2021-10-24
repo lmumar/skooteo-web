@@ -1,0 +1,42 @@
+<div id="list" class="content">
+  <div class="columns">
+    <% unless @videos.results.empty? %>
+      <div
+        class="column"
+        data-target="admin-videos.previewPane"
+        data-video_id="<%=@videos.results.first.id%>"
+      >
+        <nav class="panel">
+          <p class="panel-heading">
+            <%= h @videos.results.first.name %>
+          </p>
+          <div class="panel-block" id="preview">
+            <%= video_tag url_for(@videos.results.first.content), controls: true, autobuffer: false %>
+          </div>
+          <div class="panel-block">
+            <button class="button is-success is-fullwidth" data-target="admin-videos.approve" data-action="click->admin-videos#onApprovevideo">Approve</button>
+            &nbsp;
+            <button class="button is-fullwidth is-danger" data-target="admin-videos.reject" data-action="click->admin-videos#onRejectvideo">Reject</button>
+          </div>
+        </nav>
+      </div>
+    <% end %>
+    <div class="column">
+      <table class="table is-hoverable" data-target="admin-videos.videoList">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Submitter</th>
+            <th>Company</th>
+            <th>Submit Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render @videos.results %>
+        </tbody>
+      </table>
+      <%= render partial: 'shared/pager', object: @videos %>
+    </div>
+  </div>
+</div>

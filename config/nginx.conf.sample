@@ -1,0 +1,19 @@
+server {
+  listen 443;
+
+  ssl on;
+  ssl_certificate /etc/nginx/ssl/www.skooteo.com/ssl-bundle.crt;
+  ssl_certificate_key /etc/nginx/ssl/www.skooteo.com/server.key;
+
+  server_name webapp.skooteo.com;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+
+  passenger_enabled on;
+  passenger_app_env production;
+  passenger_ruby /home/deploy/.rvm/gems/ruby-2.6.3/wrappers/ruby;
+  root /home/deploy/skooteo/current/public;
+  location /cable {
+      passenger_app_group_name skooteo_action_cable;
+      passenger_force_max_concurrent_requests_per_process 0;
+  }
+}

@@ -1,0 +1,27 @@
+<ul data-controller="highlight" data-highlight-selected-value="1">
+  <li
+    class="is-active"
+    data-highlight-target="item"
+    data-action="click->highlight#select"
+    data-key="1"
+  >
+    <%= link_to fleet_admin_videos_path, 'data-turbo-frame' => 'videos_container' do %>
+      <span class="icon is-small">
+        <i class="fas fa-sign-in-alt"></i>
+      </span>
+      <span>Entertainment</span>
+    <% end %>
+  </li>
+  <li
+    data-highlight-target="item"
+    data-action="click->highlight#select"
+    data-key="2"
+  >
+    <%= link_to fleet_admin_videos_path(video_type: Video.types.advertisement), 'data-turbo-frame' => 'videos_container' do %>
+      <span class="icon is-small">
+        <i class="fas fa-sign-out-alt"></i>
+      </span>
+      <span>Advertisements</span>
+    <% end %>
+  </li>
+</ul>

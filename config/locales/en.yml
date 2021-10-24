@@ -1,0 +1,26 @@
+en:
+  vehicle_statuses:
+    pre_deployment: 'Pre-deployment'
+    active_service: 'Deployed - Active Service'
+    under_maintenance: 'Deployed - Under maintenance'
+    decommissioned: Decommissioned
+
+  vessel_types:
+    passenger_fast_craft: Passenger Fast Craft
+    roro_fast_craft: Ro-Ro Fast Craft
+    small_passenger_ferry: Passenger Ferry (Small)
+    large_passenger_ferry: Passenger Ferry (Large)
+    roro: Ro-Ro
+    waterbus: Waterbus
+
+  date:
+    formats:
+      short: '%d %b %Y'
+      dow: '%A'
+
+  time:
+    formats:
+      tt: '%d-%b-%Y %I:%M %p'
+      dow: '%A'
+      mil_time: '%H:%M'
+      ampm: '%I:%M %p'

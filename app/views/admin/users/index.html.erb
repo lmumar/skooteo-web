@@ -1,0 +1,39 @@
+<div data-controller="users">
+  <div class="header">
+    <div class="d-flex">
+      <span class="icon"><i class="fas fa-users"></i></span>
+      <h1 class="title is-inline-block">Users</h1>
+    </div>
+  </div>
+
+  <div class="content">
+    <nav class="level">
+      <div class="level-right">
+        <div class="field">
+          <p class="control has-icons-left">
+          <input
+              data-controller="location-search"
+              data-location-search-target="query"
+              data-action='keypress->location-search#keypress'
+              value='<%= params[:q] %>'
+              class="input"
+              type="text"
+              placeholder="Search users"
+            >
+          <span class="icon is-small is-left">
+            <i class="fas fa-search"></i>
+          </span>
+          </p>
+        </div>
+      </div>
+      <div class="level-right">
+        <%= link_to new_admin_user_path, class: "button is-secondary",
+          data: { controller: 'links', 'links-turbo-value': true, action: 'click->links#visit' } do %>
+          <span class="icon is-small"><i class="fas fa-plus"></i></span>
+          <span>Create User</span>
+        <% end %>
+      </div>
+    </nav>
+    <%= render partial: 'list' %>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+en:
+  pundit:
+    default: 'You cannot perform this action.'
+    playlist_policy:
+      destroy?: 'You cannot delete this playlist, you can only archive it!'

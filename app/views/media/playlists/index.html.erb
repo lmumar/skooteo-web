@@ -1,0 +1,32 @@
+<%= turbo_stream_from 'fleet:playlist' %>
+<div>
+  <div>
+    <%= render partial: 'header' %>
+  </div>
+  <turbo-frame id="videos_container">
+    <div class="box-group my-ad-videos">
+      <div class="columns" data-controller='playlist'>
+        <div class="column">
+          <div class="level m-b-none">
+            <div class="level-left m-t-md"></div>
+            <div class="level-right m-t-md m-b-sm">
+              <%= link_to new_media_playlist_path, class: "button is-primary",
+                'data-controller': 'links', 'data-action': 'click->links#visit', 'data-links-turbo-value': 'true' do %>
+                <span class="icon"><i class="fas fa-plus"></i></span>
+                <span>Create playlist</span>
+              <% end %>
+            </div>
+          </div>
+          <% unless Current.company.playlists.default.empty? %>
+            <div class="default-playlist playlist">
+              <%= render partial: 'playlist', collection: Current.company.playlists.default %>
+            </div>
+          <% end %>
+          <div id="playlists">
+            <%= render partial: 'custom_playlist', collection: Current.company.playlists.active %>
+          </div>
+      </div>
+      <%= render partial: 'media/videos/approved' %>
+    </div>
+  </turbo-frame>
+</div>

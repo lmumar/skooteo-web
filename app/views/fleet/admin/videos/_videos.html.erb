@@ -1,0 +1,8 @@
+<div class="column" id="list_videos">
+  <div class="list-videos">
+    <% @videos.results.in_groups(4) do |group| %>
+      <%= render group.compact %>
+    <% end %>
+  </div>
+  <%= render partial: 'shared/pager', object: @videos %>
+</div>

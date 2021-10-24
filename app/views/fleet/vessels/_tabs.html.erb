@@ -1,0 +1,30 @@
+<div class="columns m-b-none">
+  <div class="column p-t-none">
+    <div class="tabs is-centered">
+      <ul>
+        <li class="<%= active_css('vessels') %>">
+          <a
+            href="#"
+            data-content-url="<%= edit_fleet_vessel_path(@vessel) %>"
+            data-content-target="vessel-info-container"
+            data-action="click->vessels-editor#onTabClicked"
+          >
+            <span class="icon is-small"><i class="fas fa-ship"></i></span>
+            <span>Manage Vessel</span>
+          </a>
+        </li>
+        <li class="<%= active_css('vessel_routes') %>">
+          <a
+            href="#"
+            data-content-url="<%= fleet_vessel_routes_path(vessel_id: @vessel.id) %>"
+            data-content-target="vessel-info-container"
+            data-action="click->vessels-editor#onTabClicked"
+          >
+            <span class="icon is-small"><i class="fas fa-map-signs"></i></span>
+            <span>Manage Routes</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

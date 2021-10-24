@@ -1,0 +1,29 @@
+<div class="modal is-active" data-controller="billing-details">
+  <%= form_with url: admin_company_billing_details_path(@company), local: true, data: {target: 'billing-details.form'} do |form| %>
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Generate Billing Details</p>
+        <button class="delete" aria-label="close" data-action="click->billing-details#closeModal"></button>
+      </header>
+      <section class="modal-card-body">
+        <div class="field">
+          <label class="label">Start date</label>
+          <div class="control">
+            <%= form.text_field :start_date, class: 'input', data: {target: 'billing-details.startDate'} %>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">End date</label>
+          <div class="control">
+            <%= form.text_field :end_date, class: 'input', data: {target: 'billing-details.endDate'} %>
+          </div>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success" type="submit">Submit</button>
+        <button class="button" data-action="click->billing-details#closeModal">Cancel</button>
+      </footer>
+    </div>
+  <% end %>
+</div>

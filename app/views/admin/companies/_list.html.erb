@@ -1,0 +1,9 @@
+<table class="table is-hoverable is-striped" id="company_list">
+  <thead>
+    <%= render partial: "header_#{params[:company_type] || Company.types.fleet_operator.to_s }" %>
+  </thead>
+  <tbody>
+    <%= render partial: (params[:company_type] || Company.types.fleet_operator.to_s), collection: @companies.results, as: :company %>
+  </tbody>
+</table>
+<%= render partial: "shared/pager", object: @companies %>

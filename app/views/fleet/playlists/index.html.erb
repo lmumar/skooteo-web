@@ -1,0 +1,21 @@
+<%= turbo_stream_from 'fleet:playlist' %>
+<div data-controller="playlist" data-playlist-ns="fleet">
+  <%= render 'header' %>
+  <div class="content-group">
+    <div class="columns m-b-none">
+      <div class="column has-text-right">
+        <%= link_to new_fleet_playlist_path(playlist_type: params[:playlist_type]), class: 'button is-primary',
+          'data-controller': 'links', 'data-action': 'click->links#visit', 'data-links-turbo-value': 'true' do %>
+          <span class="icon">
+            <i class="fas fa-plus"></i>
+          </span>
+          <span>Create playlist</span>
+        <% end %>
+
+        <div class="playlist" id="playlists">
+          <%= render partial: 'playlist', collection: @playlists %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

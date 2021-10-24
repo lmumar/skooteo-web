@@ -1,0 +1,11 @@
+<%= turbo_stream.update 'modal-container' do %>
+  <%= render partial: 'edit' %>
+<% end %>
+
+<%= turbo_stream.replace dom_id(@company) do %>
+  <%= render partial: @company.company_type, object: @company, as: :company %>
+<% end %>
+
+<%= turbo_stream.replace "save_notification" do %>
+  <%= render partial: 'shared/save_notification', object: @company, as: :record %>
+<% end %>

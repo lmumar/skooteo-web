@@ -1,0 +1,24 @@
+<ul>
+  <li class="<%= active_css_iftrue { controller_name != 'videos' && (params[:playlist_type] || 'OnboardingPlaylist') == 'OnboardingPlaylist' } %>">
+    <%= link_to fleet_playlists_path(playlist_type: 'OnboardingPlaylist') do %>
+      <span class="icon is-small">
+        <i class="fas fa-sign-in-alt"></i>
+      </span>
+      <span>Onboarding</span>
+    <% end %>
+  </li>
+  <li class="<%= active_css_iftrue { params[:playlist_type] == 'OffboardingPlaylist' } %>">
+    <%= link_to fleet_playlists_path(playlist_type: 'OffboardingPlaylist') do %>
+      <span class="icon is-small">
+        <i class="fas fa-sign-out-alt"></i>
+      </span>
+      <span>Offboarding</span>
+    <% end %>
+  </li>
+  <li class="<%= active_css 'videos' %>">
+    <%= link_to fleet_videos_path(video_type: Skooteo::ANNOUNCEMENT_VIDEO_TYPE) do %>
+      <span class="icon is-small"><i class="fas fa-video"></i></span>
+      <span>All Videos</span>
+    <% end %>
+  </li>
+</ul>

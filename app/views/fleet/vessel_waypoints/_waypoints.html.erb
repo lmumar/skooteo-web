@@ -1,0 +1,13 @@
+<div class="columns" id="waypoints">
+  <div class="column p-t-none">
+    <div class="has-fullwidth">
+      <fieldset class="form-fieldset">
+        <div class="form-table" id="waypointset">
+          <% waypoints.each do |waypoint| %>
+            <%= render partial: 'fleet/vessel_waypoints/waypoint', locals: { waypoint: waypoint } %>
+          <% end %>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</div>

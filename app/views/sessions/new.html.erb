@@ -1,0 +1,33 @@
+<div class="container h-100">
+  <div class="columns">
+    <div class="column is-6 is-offset-3">
+      <div class="box login m-t-xl">
+        <div class="has-text-centered">
+          <%= image_tag("/images/skooteo-logo.png", :alt => "skooteo media") %>
+          <small class="has-text-danger is-hidden">Status message here</small>
+        </div>
+        <%= form_with model: User.new, url: sessions_path do |form| %>
+          <div class="control has-icons-left m-t-md">
+          <%= form.email_field :email, class: "input", placeholder: "Username", 'data-action': 'keyup->sessions#change' %>
+          <span class="icon is-left">
+            <i class="fas fa-user"></i>
+          </span>
+          </div>
+          <div class="control has-icons-left m-t-lg">
+          <%= form.password_field :password, class: "input", placeholder: "Password", 'data-action': 'keyup->sessions#change' %>
+          <span class="icon is-left">
+            <i class="fas fa-key"></i>
+          </span>
+          </div>
+          <div class="m-t-lg actions">
+          <%= button_tag "LOGIN", class: "button is-info is-medium is-rounded submit", disabled: true %>
+          <%# a class="small m-t-lg" href="">Forgot Password?</a %>
+          </div>
+        <% end %>
+      </div>
+      <div class="login-footer">
+          <small>&copy; 2018 Skooteo Inc.</small>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<% provide :head_tags do %>
+  <script type="text/javascript">
+    window.__gmap_api_key = '<%=Rails.application.credentials.google_maps_api_key-%>'
+  </script>
+<% end %>
+<div data-controller="vessels" id="fleet" data-vessels-index="0">
+  <div class="header">
+    <div class="d-flex">
+      <span class="icon">
+        <i class="fas fa-ship"></i>
+      </span>
+      <h1 class="title is-inline-block">Vessels</h1>
+    </div>
+    <div class="d-flex">
+      <div class="tabs is-inline-block">
+        <ul>
+          <li class="is-active">
+            <a>
+              <span class="icon is-small"><i class="fas fa-ship"></i></span>
+              <span>All Vessels</span>
+            </a>
+          </li>
+          <li>
+            <%= link_to new_fleet_vessel_path,
+              'data-controller': 'links', 'data-action': 'click->links#visit', 'data-links-turbo-value': 'true' do %>
+              <span class="icon is-small"><i class="fas fa-plus"></i></span>
+              <span>Add Vessel</span>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <%= render "filters" %>
+  <% if params[:view_type] == 'map'%>
+    <%= render "map" %>
+  <% else %>
+    <%= render "list" %>
+  <% end %>
+</div>

@@ -1,0 +1,4 @@
+<%= form.label field_name.to_sym, prop_info['label'] %>
+<div class="form-field-content">
+  <%= form.text_field field_name.to_sym, placeholder: true, required: prop_info.fetch('required') { false } %>
+</div>

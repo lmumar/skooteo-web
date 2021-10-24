@@ -1,0 +1,15 @@
+<table class="table is-hoverable" id="user_list">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Company</th>
+      <th>Last sign-in</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @users.results %>
+  </tbody>
+</table>
+<%= render partial: "shared/pager", object: @users %>

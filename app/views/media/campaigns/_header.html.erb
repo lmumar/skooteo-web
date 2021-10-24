@@ -1,0 +1,26 @@
+<div class="header">
+  <div class="d-flex header-wrap">
+    <span class="icon">
+      <i class="fas fa-calendar-alt"></i>
+    </span>
+    <h1 class="title is-inline-block">Manage Campaigns</h1>
+  </div>
+  <div class="d-flex">
+    <div class="tabs is-inline-block">
+      <ul data-target="campaigns.tabs">
+        <li class="is-active" data-tab="view_by_campaign">
+          <a data-action="click->campaigns#onTabChanged" data-tabindex="0">
+            <span class="icon is-small"><i class="fas fa-redo-alt"></i></span>
+            <span>View by Campaign</span>
+          </a>
+        </li>
+        <li data-tab="view_by_date">
+          <a data-action="click->campaigns#onTabChanged" data-tabindex="1">
+            <span class="icon is-small"><i class="fas fa-bullhorn"></i></span>
+            <span>View by Date</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

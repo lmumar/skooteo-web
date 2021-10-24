@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgis
+  encoding: unicode
+  postgis_extension: postgis
+  postgis_schema: public
+  schema_search_path: public,postgis
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: skooteo_development
+
+test:
+  <<: *default
+  database: skooteo_test
+
+production:
+  <<: *default
+  database: skooteo_production
+  host: <%= ENV['APP_DATABASE_HOST'] %>
+  username: <%= ENV['APP_DATABASE_USERNAME'] %>
+  password: <%= ENV['APP_DATABASE_PASSWORD'] %>
