@@ -16,7 +16,12 @@ module Mutations
         v.vehicle.fcm_notification_token = fcm_notification_token
         v.vehicle.save!
 
-        Vessel::NotifyDownloadVideosJob.perform_later(v.vehicle)
+        # Wait for approximately 2 seconds to give time for the device
+        # to save the device token, otherwise the device might miss the
+        # initial video download notification
+        Vessel::NotifyDownloadVideosJob
+          .set(wait: 2.seconds)
+          .perform_later(v.vehicle)
 
         true
       end

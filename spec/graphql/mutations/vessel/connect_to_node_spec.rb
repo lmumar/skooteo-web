@@ -26,13 +26,14 @@ describe Mutations::Vessels::ConnectToNode do
       end
 
       it 'sends notifications' do
-        expect(Vessel::NotifyDownloadVideosJob).to receive(:perform_later).with(vehicle).once
+        ActiveJob::Base.queue_adapter = :test
         context  = {}
         resolver = described_class.new(object: nil, context: context, field: nil)
         paired = resolver.resolve(
           vessel_id: vehicle.vessel.id,
           fcm_notification_token: 'foobar'
         )
+        expect(Vessel::NotifyDownloadVideosJob).to have_been_enqueued
       end
     end
   end
