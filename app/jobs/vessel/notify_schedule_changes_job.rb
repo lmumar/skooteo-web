@@ -58,8 +58,8 @@ class Vessel::NotifyScheduleChangesJob < ApplicationJob
           trip_end_buffer_in_minutes: trip_config.fetch(:trip_end_buffer_in_minutes).to_s,
           trip_status_text: trip.status_text,
           trip_status: trip.status_before_type_cast.to_s,
-          etd: trip.etd.utc.to_s,
-          eta: trip.eta.utc.to_s
+          etd: trip.etd.utc.iso8601,
+          eta: trip.eta.utc.iso8601
         )
       when notification_types.deleted_schedule, notification_types.cancelled_schedule
         payload
